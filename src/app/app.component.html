@@ -1,9 +1,19 @@
 <ion-app>
   <ion-split-pane>
     <ion-menu>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Menu</ion-title>
+      <ion-header (click)="openAccountDetails()">
+        <ion-toolbar class="big-toolbar">
+          <!--<ion-title>Luis Fernando</ion-title>-->
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="4">
+                <ion-icon name="contact" color="primary" style="font-size: 3em; padding-top: 0.15em; padding-left: 0.15em"></ion-icon>
+              </ion-col>
+              <ion-col size="8">
+                <h4 color="primary" style="position: absolute;bottom: 0">Luis Fernando</h4>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-toolbar>
       </ion-header>
       <ion-content>

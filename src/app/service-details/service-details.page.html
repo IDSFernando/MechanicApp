@@ -1,0 +1,155 @@
+<ion-header translucent="true" no-border>
+  <ion-toolbar>
+    <ion-button fill="clear" start (click)="leave()" color="dark">
+      <ion-ripple-effect></ion-ripple-effect>
+      Cerrar
+    </ion-button>
+    <ion-title>Nombre del taller</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding fulscreen="true">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-ripple-effect></ion-ripple-effect>
+      <ion-icon name="call"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Datos y servicios del CMA -->
+  <ion-item>
+    <h4>Información del taller</h4>
+    <br>
+  </ion-item>
+  <br><br>
+  <ion-slides card-slides slidesPerView="1.18" spaceBetween="5" pager="true">
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>
+            Dirección
+          </ion-card-subtitle>
+          <ion-card-title>
+            Avenida x, colonia y, Estado z
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>
+              Horarios
+            </ion-card-subtitle>
+            <ion-card-title>
+              Lunes: 08:00 hasta 17:00 (Abierto)
+            </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>
+              Atiende:
+            </ion-card-subtitle>
+            <ion-card-title>
+              David Pérez Sánchez
+            </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>
+              Servicios
+            </ion-card-subtitle>
+            <ion-card-title>
+              <ion-list>
+                <ion-item>
+                  <ion-label>Alineación y balanceo</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Cambio de balatas</ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Reparacion de aire</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  <br>
+  
+  <ion-item>
+    <h4>Conoce el lugar</h4>
+  </ion-item>
+  
+  
+  <ion-slides card-slides slidesPerView="1.18" spaceBetween="5" pager="true" style="padding-bottom: 2em !important">
+    <ion-slide>
+      <ion-card>
+        <img src="https://blog.reparacion-vehiculos.es/hs-fs/hubfs/Imágenes_Post/Julio%202018/errores%20cambio-aceite.jpg?width=800&name=errores%20cambio-aceite.jpg" alt="">
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card>
+        <img src="http://carclubfirestonecr.com/wp-content/uploads/2015/10/cambio-llantas1.jpg" alt="">
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-item>
+    <h4>Calidad del servicio:</h4>
+    <br>
+  </ion-item>
+  <br><br>
+  <div style="margin: 0 auto; text-align: center">
+    <ion-icon name="star" class="star"></ion-icon>
+    <ion-icon name="star" class="star"></ion-icon>
+    <ion-icon name="star" class="star"></ion-icon>
+    <ion-icon name="star" class="star"></ion-icon>
+    <ion-icon name="star-half" class="star"></ion-icon>
+  </div>
+  <br>
+
+  <ion-item>
+    <h4>Opiniones</h4>
+  </ion-item>
+  <br>
+  <ion-slides card-slides slidesPerView="2" spaceBetween="5" pager="true" style="padding-bottom: 2em !important">
+    <ion-slide>
+      <ion-card style="width: 90%">
+        <ion-card-header>
+          <ion-icon name="star" class="star"></ion-icon>
+          <ion-icon name="star" class="star"></ion-icon>
+          <ion-icon name="star" class="star"></ion-icon>
+          <ion-icon name="star" class="star"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          Excelente servicio, 100% recomendado
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <br><br>
+      <ion-card style="width: 90%">
+        <ion-card-header>
+          <ion-icon name="star-half" class="star"></ion-icon>
+        </ion-card-header>
+        <ion-card-content>
+          Los costos son muy elevados
+        </ion-card-content>
+      </ion-card>
+      <br><br>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

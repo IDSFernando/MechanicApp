@@ -7,7 +7,7 @@ ion-card
 
 h5
 {
-    color: #7044ff !important;
+    color: #7bc6cc !important;
     font-weight: bold !important;
 }
 
@@ -19,15 +19,15 @@ img
 
 
 ion-card-title, ion-card-subtitle {
-    color: #e55d87 !important;
+  color: #e55d87 !important;
 }
 
 .login_input
 {
-  border-bottom: solid 1px black;
+  border-radius: 1em !important;
+  background-color: #e3e5e8 !important;
   text-align: center !important;
-  padding: 2em;
-  font-weight: bold;
+  color: black !important;
 }
 
 .register_input
@@ -38,8 +38,13 @@ ion-card-title, ion-card-subtitle {
   color: #be93c5 !important;
 }
 
-.register_button
+.login_button
 {
+  --background: #7bc6cc !important;
+  --border-color: #7bc6cc !important;
+  --border-radius: 1em !important;
+  --background-activated: #7bc6cc !important;
+  --background-focused: #7bc6cc !important;
   background-color: #7bc6cc;
   --color: white !important;
   --color-activated: white !important;
@@ -77,11 +82,10 @@ ion-card-title, ion-card-subtitle {
   
   .content {
     text-align: center;
-    background-color: rgba($color: white, $alpha: 0.65);
+    background-color: rgba($color: white, $alpha: 1);
     border-radius: 1em;
     width: 90%;
     height: auto !important;
-    backdrop-filter: blur(10px);
     .buttons-container {
       margin-top: 30px;
     }

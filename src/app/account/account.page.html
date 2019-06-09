@@ -1,0 +1,64 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-button fill="clear" start (click)="leave()" color="dark">
+      <ion-ripple-effect></ion-ripple-effect>
+      Cerrar
+    </ion-button>
+    <ion-title>Mi perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" padding>
+  <h1 style="font-weight: bold; font-size: 1.35em">
+    Información básica
+  </h1>
+  
+  <form action="">
+    <ion-item-group>
+      <ion-item>
+        <ion-label>
+          Nombre:
+        </ion-label>
+        <ion-input outlineInput value="Luis Fernando"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label>
+          Número telefónico:
+        </ion-label>
+        <ion-input outlineInput value="9611003141"></ion-input>
+      </ion-item>
+    </ion-item-group>
+    <br>
+    <ion-item-group>
+      <h1 style="font-weight: bold; font-size: 1.35em">Seguridad</h1>
+      <br>
+      <ion-button color="warning" fill="outline">
+        <ion-ripple-effect></ion-ripple-effect>
+        Cambiar mi contraseña
+      </ion-button>
+    </ion-item-group>
+    
+    <br>
+    <ion-item-group>
+      <h2 style="font-weight: bold; font-size: 1.35em;">Tu cuenta</h2>
+      <br>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button color="primary" fill="outline">
+              <ion-ripple-effect></ion-ripple-effect>
+              Cerrar mi sesión
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button color="danger" fill="outline">
+              <ion-ripple-effect></ion-ripple-effect>
+              Eliminar mi cuenta
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item-group>
+  </form>
+</ion-content>

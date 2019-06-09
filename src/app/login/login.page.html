@@ -26,12 +26,12 @@
           <ion-grid fixed>
             <ion-row>
               <ion-col size="12">
-                <ion-button color="primary" (click)="login()" expand="block" [disabled]="listFormGroup.invalid">
+                <ion-button class="login_button" (click)="login()" expand="block" [disabled]="listFormGroup.invalid">
                   Iniciar sesión
                 </ion-button>
               </ion-col>
               <ion-col size="12">
-                <ion-button color="tertiary" (click)="showRegisterForm()" expand="block">
+                <ion-button class="login_button" (click)="showRegisterForm()" expand="block">
                   No tengo cuenta
                 </ion-button>
               </ion-col>
@@ -73,12 +73,12 @@
           <ion-grid fixed>
             <ion-row>
               <ion-col size="12">
-                  <ion-button color="primary" (click)="register()" expand="block" [disabled]="registerFormGroup.invalid" size="large">
+                  <ion-button (click)="register()" class="login_button" expand="block" [disabled]="registerFormGroup.invalid" size="large">
                     Registrarse
                   </ion-button>
               </ion-col>
               <ion-col size="12">
-                <ion-button color="tertiary" (click)="showLoginForm()" expand="block" size="large">
+                <ion-button (click)="showLoginForm()" class="login_button" expand="block" size="large">
                   Ya tengo cuenta
                 </ion-button>
               </ion-col>

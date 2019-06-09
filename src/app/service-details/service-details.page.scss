@@ -1,0 +1,41 @@
+$content-padding:16px;
+page-truncated-slider {
+  ion-slides[card-slides]{
+    height: 15em !important;
+    margin-left: -$content-padding;
+    border: solid 1px black;
+    width: calc(100% + #{$content-padding*2});
+    .swiper-container {
+      padding-bottom: 30px;
+    }
+    .swiper-slide, .swiper-container, .swiper-wrapper {
+      //height: auto;
+      height: 15em !important;
+    }
+    .swiper-slide .slide-zoom, .swiper-slide .card {
+      //height: 100%;
+      height: 15em !important;
+    }
+  }
+}
+
+h1, h2, h3, h4, h5
+{
+    color: #7bc6cc !important;
+}
+
+h1, h4
+{
+    font-weight: bold;
+}
+
+.star
+{
+  --color: #fcbf32 !important;
+  color: #fcbf32 !important;
+}
+
+.swiper-pagination .swiper-pagination-bullets
+{
+    bottom: 0em !important;
+}

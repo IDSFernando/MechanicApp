@@ -18,6 +18,8 @@ const routes: Routes = [
     path: 'register',
     loadChildren: './register/register.module#RegisterPageModule'
   },
+  { path: 'service-details', loadChildren: './service-details/service-details.module#ServiceDetailsPageModule' },
+  { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
 ];
 /*
 const routes: Routes = [

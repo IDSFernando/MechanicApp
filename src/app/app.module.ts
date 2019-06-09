@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
 // Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { ServiceDetailsPageModule } from './service-details/service-details.module';
+import { AccountPageModule } from './account/account.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ServiceDetailsPageModule,
+    AccountPageModule
   ],
   providers: [
     StatusBar,
