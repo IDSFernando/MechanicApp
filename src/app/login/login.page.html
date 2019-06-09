@@ -1,0 +1,91 @@
+<ion-content fullscreen="true" force-overscroll="false">
+  <video controls preload="auto" autoplay playsinline muted loop>
+    <!--<source src="assets/video/background.mp4">-->
+      <source [src]="videoURL">
+    </video>
+    <div class="page-centered-element">
+      <div class="content">
+        <form [formGroup]='listFormGroup' *ngIf="!isRegister">
+
+          <h5>Iniciar sesión</h5>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-input class="login_input" formControlName="username" inputmode="email" placeholder="Nombre de usuario"></ion-input>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size="12">
+                <ion-input class="login_input" formControlName="password" inputmode="password" type="password" clearOnEdit placeholder="Contraseña"></ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <br>
+          
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12">
+                <ion-button color="primary" (click)="login()" expand="block" [disabled]="listFormGroup.invalid">
+                  Iniciar sesión
+                </ion-button>
+              </ion-col>
+              <ion-col size="12">
+                <ion-button color="tertiary" (click)="showRegisterForm()" expand="block">
+                  No tengo cuenta
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+        
+        
+        <form [formGroup]='registerFormGroup' *ngIf="isRegister">
+
+          <h5>Crear cuenta</h5>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-input class="login_input" formControlName="username" inputmode="email" placeholder="Nombre de usuario"></ion-input>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size="12">
+                <ion-input class="login_input" formControlName="email" inputmode="email" placeholder="Correo electrónico"></ion-input>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size="12">
+                <ion-input class="login_input" formControlName="telefono" inputmode="tel" placeholder="Número telefónico"></ion-input>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size="12">
+                <ion-input class="login_input" formControlName="password" inputmode="password" type="password" clearOnEdit placeholder="Contraseña"></ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <br>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12">
+                  <ion-button color="primary" (click)="register()" expand="block" [disabled]="registerFormGroup.invalid" size="large">
+                    Registrarse
+                  </ion-button>
+              </ion-col>
+              <ion-col size="12">
+                <ion-button color="tertiary" (click)="showLoginForm()" expand="block" size="large">
+                  Ya tengo cuenta
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+  

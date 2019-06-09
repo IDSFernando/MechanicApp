@@ -1,0 +1,100 @@
+ion-card
+{
+  height: 30vh !important;
+  min-height: 30vh !important;
+  width: 90% !important;
+}
+
+h5
+{
+    color: #7044ff !important;
+    font-weight: bold !important;
+}
+
+img
+{
+  height: 20em !important;
+  width: 100% !important;
+}
+
+
+ion-card-title, ion-card-subtitle {
+    color: #e55d87 !important;
+}
+
+.login_input
+{
+  border-bottom: solid 1px black;
+  text-align: center !important;
+  padding: 2em;
+  font-weight: bold;
+}
+
+.register_input
+{
+  border-bottom: solid 1px #be93c5;
+  text-align: center !important;
+  padding: 1em;
+  color: #be93c5 !important;
+}
+
+.register_button
+{
+  background-color: #7bc6cc;
+  --color: white !important;
+  --color-activated: white !important;
+  --color-focused: white !important;
+  font-weight: bold;
+  transition: ease-in-out .3s;
+  &:focus
+  {
+    --color: white !important;
+  }
+  &:hover{
+    --color: white !important;
+  }
+  &:active{
+    background-color: #7bc6cc;
+    --color: white;
+    --color-activated: white !important;
+    --color-focused: white !important;
+    font-weight: bold;
+    transform: scale(0.85);
+    transition: ease-in-out .3s;
+  }
+}
+
+.page-centered-element {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .content {
+    text-align: center;
+    background-color: rgba($color: white, $alpha: 0.65);
+    border-radius: 1em;
+    width: 90%;
+    height: auto !important;
+    backdrop-filter: blur(10px);
+    .buttons-container {
+      margin-top: 30px;
+    }
+  }
+
+  video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+}
