@@ -1,12 +1,12 @@
 # MechanicApp
-Proyecto de Investigación
+Aplicación móvil que te permitirá encontrar el mejor Centro de Mantenimiento Automotriz para tu vehículo
 
 ## Requerimientos
 - [Node JS 10.X](https://nodejs.org/en/)
 - [Ionic CLI](https://ionicframework.com/getting-started#cli)
 
 ## Instalación de dependencias
-*Para poder ejecutar el proyecto se requiere de la instalación de dependencias (NPM), las cuales se enuentran en el archivo `composer.json`:*
+*Para poder ejecutar el proyecto se requiere de la instalación de dependencias (NPM), las cuales se enuentran en el archivo `package.json`:*
 > npm install
 
 ## Native API's
