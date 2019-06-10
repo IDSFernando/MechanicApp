@@ -11,13 +11,14 @@ Proyecto de Investigación
 
 ## Native API's
 Las Native apis las provee Córdova, por lo que cada dependencia se listará aquí y podrá instalarla en el proyecto clonado.
-- [Screen Orientation](https://ionicframework.com/docs/native/screen-orientation)
+- [CallNumber](https://ionicframework.com/docs/native/call-number)
 - [Keyboard](https://beta.ionicframework.com/docs/native/keyboard)
+- [Screen Orientation](https://ionicframework.com/docs/native/screen-orientation)
 
 * * *
 
 ## Importante
-*El proyecto aún se encuentra bajo desarrollo, última actualización `14 de mayo de 2019`*
+*El proyecto aún se encuentra bajo desarrollo, última actualización `9 de junio de 2019`*
 
 * * *
 
