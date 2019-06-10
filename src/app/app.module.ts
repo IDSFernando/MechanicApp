@@ -14,6 +14,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ServiceDetailsPageModule } from './service-details/service-details.module';
 import { AccountPageModule } from './account/account.module';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +31,8 @@ import { AccountPageModule } from './account/account.module';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    ScreenOrientation
+    ScreenOrientation,
+    CallNumber
   ],
   bootstrap: [AppComponent]
 })
