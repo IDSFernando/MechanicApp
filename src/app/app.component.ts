@@ -17,9 +17,34 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'Talleres',
+      title: 'Alineación y balanceo',
       url: '/list',
-      icon: 'build'
+      icon: 'repeat'
+    },
+    {
+      title: 'Inyección electrónica y mecánica',
+      url: '/list',
+      icon: 'car'
+    },
+    {
+      title: 'Aire acondicionado',
+      url: '/list',
+      icon: 'snow'
+    },
+    {
+      title: 'Frenos',
+      url: '/list',
+      icon: 'hand'
+    },
+    {
+      title: 'Cajas de velocidad',
+      url: '/list',
+      icon: 'speedometer'
+    },
+    {
+      title: 'Pintura',
+      url: '/list',
+      icon: 'brush'
     }
   ];
 
