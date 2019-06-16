@@ -15,6 +15,8 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 export class ServiceDetailsPage implements OnInit {
 
   currentModal: ModalController
+
+  currentSegment: string = "map";
   constructor(
     private nav: NavParams,
     private llamada: CallNumber,

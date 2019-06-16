@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 //  Formularios
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 //  Loading
-import { LoadingController } from '@ionic/angular'
+import { LoadingController, MenuController } from '@ionic/angular'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
 
 
@@ -28,9 +28,11 @@ export class LoginPage implements OnInit {
     private router: Router,
     private formBuilder:FormBuilder,
     private sbar: StatusBar,
+    private menu: MenuController
   )
   {
     //this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
+    this.menu.enable(false)
     this.sbar.hide()
     this.videoURL = urlLogin
   }

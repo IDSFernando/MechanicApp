@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ServiceDetailsPage } from '../service-details/service-details.page';
-
+import { MenuController } from '@ionic/angular'
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -11,9 +11,10 @@ export class HomePage {
 
   constructor(
     private openPageAsModal : ModalController,
+    private menu: MenuController,
   )
   {
-
+    this.menu.enable(true)
   }
 
   /**

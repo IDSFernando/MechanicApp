@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ServiceDetailsPage } from './service-details.page';
+import { HereMapComponent } from '../here-map/here-map.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ServiceDetailsPage]
+  declarations: [ServiceDetailsPage, HereMapComponent],
+  exports: [HereMapComponent]
 })
 export class ServiceDetailsPageModule {}

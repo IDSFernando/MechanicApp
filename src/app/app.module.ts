@@ -11,10 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
 // la pantalla de login / register
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
 // Formularios
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 import { ServiceDetailsPageModule } from './service-details/service-details.module';
 import { AccountPageModule } from './account/account.module';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import { HereMapComponent } from './here-map/here-map.component';
 
 @NgModule({
   declarations: [AppComponent],
