@@ -1,3 +1,14 @@
+
+:host{
+  .modal-wrapper
+  {
+    --background: url('../../assets/shape-bg.png') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  
+  }
+}
+
 $content-padding:16px;
 page-truncated-slider {
   ion-slides[card-slides]{
