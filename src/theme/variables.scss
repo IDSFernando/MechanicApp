@@ -1,8 +1,25 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+
+@font-face{
+  font-family: 'Eina';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/eina-regular.ttf');
+}
+
+@font-face{
+  font-family: 'Eina';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/fonts/eina-bold.ttf');
+}
+
 /** Ionic CSS Variables **/
 :root {
+
+  --ion-font-family: 'Eina';
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
