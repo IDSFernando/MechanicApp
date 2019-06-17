@@ -16,7 +16,6 @@ import { ServiceDetailsPageModule } from './service-details/service-details.modu
 import { AccountPageModule } from './account/account.module';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { HereMapComponent } from './here-map/here-map.component';
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

@@ -7,6 +7,7 @@ import { NavParams, AlertController, ModalController } from '@ionic/angular'
 import { CallNumber } from '@ionic-native/call-number/ngx'
 
 import { ActionSheetController } from '@ionic/angular'
+import { FormGroup, FormBuilder , Validators} from '@angular/forms';
 
 
 @Component({
@@ -20,11 +21,13 @@ export class ServiceDetailsPage implements OnInit {
   
   currentSegment: string = "map"
   phoneNumbers:string[] = []
-  
+
+  commentFormGroup:FormGroup
   constructor(
     private nav: NavParams,
     private llamada: CallNumber,
     private actionSheetController: ActionSheetController,
+    private formBuilder:FormBuilder,
     )
     {
       this.currentModal = this.nav.get('modal')
@@ -32,6 +35,10 @@ export class ServiceDetailsPage implements OnInit {
         '9611319085',
         '9612387823'
       ]
+      this.commentFormGroup = this.formBuilder.group({
+        'rate': ['', Validators.required],
+        'comment': ['', Validators.required]
+      })
     }
     
     ngOnInit() {
@@ -98,6 +105,18 @@ export class ServiceDetailsPage implements OnInit {
       leave()
       {
         this.currentModal.dismiss()
+      }
+
+
+      eval()
+      {
+        console.log(
+          `El valor es ${this.commentFormGroup.get('rate').value}`
+        )
+
+        console.log(
+          `El valor es ${this.commentFormGroup.get('comment').value}`
+        )
       }
       
     }

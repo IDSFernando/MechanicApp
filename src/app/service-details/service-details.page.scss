@@ -5,7 +5,20 @@
     --background: url('../../assets/shape-bg.png') !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
-  
+    ion-textarea
+    {
+      border-bottom: solid 1px #488aff !important;
+    }
+  }
+}
+
+rating {
+  ion-icon {
+    color: gray;
+
+    &.filled {
+      color: #ffb400;
+    }
   }
 }
 
@@ -32,7 +45,7 @@ page-truncated-slider {
 
 h1, h4
 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .star
@@ -43,11 +56,23 @@ h1, h4
 
 .swiper-pagination .swiper-pagination-bullets
 {
-    bottom: 0em !important;
+  bottom: 0em !important;
 }
 
 
 .full-size{
   width: 100%;
   height: 76vh;
+}
+
+
+@keyframes animatedInput{
+  0% {
+    border-bottom: solid 0px #488aff;
+    transition: ease-in-out .2s;
+  }
+  100% {
+    border-bottom: solid 1px #488aff;
+    transition: ease-in-out .2s;
+  }
 }
