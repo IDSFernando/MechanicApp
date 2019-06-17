@@ -20,6 +20,8 @@ const routes: Routes = [
   },
   { path: 'service-details', loadChildren: './service-details/service-details.module#ServiceDetailsPageModule' },
   { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
+  { path: 'busqueda', loadChildren: './busqueda/busqueda.module#BusquedaPageModule' },
+  { path: 'servicio', loadChildren: './servicio/servicio.module#ServicioPageModule' },
 ];
 /*
 const routes: Routes = [
