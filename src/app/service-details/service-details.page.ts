@@ -42,6 +42,8 @@ export class ServiceDetailsPage implements OnInit {
     }
     
     ngOnInit() {
+      console.log("xxxx");
+      
     }
     
     /**
@@ -110,6 +112,12 @@ export class ServiceDetailsPage implements OnInit {
 
       eval()
       {
+
+        alert('zxcsczxc')
+        alert(this.commentFormGroup.get('rate').value)
+        alert(this.commentFormGroup.get('comment').value)
+        console.log("ahhhhs");
+        
         console.log(
           `El valor es ${this.commentFormGroup.get('rate').value}`
         )
