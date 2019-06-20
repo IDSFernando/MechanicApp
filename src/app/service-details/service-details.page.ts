@@ -21,7 +21,7 @@ export class ServiceDetailsPage implements OnInit {
   
   currentSegment: string = "map"
   phoneNumbers:string[] = []
-
+  comentarios:any = []
   commentFormGroup:FormGroup
   constructor(
     private nav: NavParams,
@@ -39,11 +39,26 @@ export class ServiceDetailsPage implements OnInit {
         'rate': ['', Validators.required],
         'comment': ['', Validators.required]
       })
+      this.comentarios.push({
+        autor: 'Bot 1',
+        mensaje: 'Excelente servicio',
+        valoracion: 5
+      })
+
+      this.comentarios.push({
+        autor: 'Bot 2',
+        mensaje: 'Te atienden muy bien',
+        valoracion: 5
+      })
+
+      this.comentarios.push({
+        autor: 'Bot 3',
+        mensaje: 'Pésimo servicio',
+        valoracion: 1
+      })
     }
     
     ngOnInit() {
-      console.log("xxxx");
-      
     }
     
     /**
@@ -112,19 +127,14 @@ export class ServiceDetailsPage implements OnInit {
 
       eval()
       {
-
-        alert('zxcsczxc')
-        alert(this.commentFormGroup.get('rate').value)
-        alert(this.commentFormGroup.get('comment').value)
-        console.log("ahhhhs");
-        
-        console.log(
-          `El valor es ${this.commentFormGroup.get('rate').value}`
-        )
-
-        console.log(
-          `El valor es ${this.commentFormGroup.get('comment').value}`
-        )
+        this.comentarios.unshift({
+          autor: 'Luis Fernando',
+          mensaje: this.commentFormGroup.get('comment').value,
+          valoracion: this.commentFormGroup.get('rate').value
+        })
+        return Promise.resolve(this.comentarios).then(()=>{
+          this.commentFormGroup.reset()
+        })
       }
       
     }

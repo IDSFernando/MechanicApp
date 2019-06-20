@@ -21,7 +21,9 @@ import { HereMapComponent } from './here-map/here-map.component';
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     AppRoutingModule,
     FormsModule,
     ServiceDetailsPageModule,
