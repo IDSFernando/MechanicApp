@@ -10,6 +10,7 @@ import { ActionSheetController } from '@ionic/angular'
 import { FormGroup, FormBuilder , Validators} from '@angular/forms';
 
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
+import {resolve } from 'q';
 
 
 @Component({
@@ -60,13 +61,13 @@ export class ServiceDetailsPage implements OnInit {
         mensaje: 'Pésimo servicio',
         valoracion: 1
       })
-
+      
       setTimeout(() => {
-        this.showMap()
+        //this.showMap()
       }, 1000);
     }
     
-
+    
     showMap()
     {
       var map = new mapboxgl.Map({
@@ -85,11 +86,10 @@ export class ServiceDetailsPage implements OnInit {
     }
     ionViewDidLoad()
     {
-      
     }
     ionViewDidEnter()
     {
-      
+      this.showMap()
     }
     
     ngOnInit() {
@@ -166,10 +166,9 @@ export class ServiceDetailsPage implements OnInit {
           mensaje: this.commentFormGroup.get('comment').value,
           valoracion: this.commentFormGroup.get('rate').value
         })
-        return Promise.resolve(this.comentarios).then(()=>{
+        return resolve(this.comentarios).then(()=>{
           this.commentFormGroup.reset()
         })
       }
-      
     }
     
