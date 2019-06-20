@@ -9,6 +9,8 @@ import { CallNumber } from '@ionic-native/call-number/ngx'
 import { ActionSheetController } from '@ionic/angular'
 import { FormGroup, FormBuilder , Validators} from '@angular/forms';
 
+import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
+
 
 @Component({
   selector: 'app-service-details',
@@ -23,6 +25,7 @@ export class ServiceDetailsPage implements OnInit {
   phoneNumbers:string[] = []
   comentarios:any = []
   commentFormGroup:FormGroup
+  
   constructor(
     private nav: NavParams,
     private llamada: CallNumber,
@@ -30,6 +33,7 @@ export class ServiceDetailsPage implements OnInit {
     private formBuilder:FormBuilder,
     )
     {
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaWRzZmVybmFuZG8iLCJhIjoiY2p4NHhzZjQ3MDJyNzQzdXJxYW01cGE4NSJ9.703KpAMi7SCviDt79F_Y1g'
       this.currentModal = this.nav.get('modal')
       this.phoneNumbers = [
         '9611319085',
@@ -44,18 +48,48 @@ export class ServiceDetailsPage implements OnInit {
         mensaje: 'Excelente servicio',
         valoracion: 5
       })
-
+      
       this.comentarios.push({
         autor: 'Bot 2',
         mensaje: 'Te atienden muy bien',
         valoracion: 5
       })
-
+      
       this.comentarios.push({
         autor: 'Bot 3',
         mensaje: 'Pésimo servicio',
         valoracion: 1
       })
+
+      setTimeout(() => {
+        this.showMap()
+      }, 1000);
+    }
+    
+
+    showMap()
+    {
+      var map = new mapboxgl.Map({
+        container: 'taller-map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        zoom: 15,
+        center: [-93.0993909, 16.7421112]
+      });
+      map.addControl(new mapboxgl.NavigationControl());
+      var marker = new mapboxgl.Marker();
+      marker.setLngLat([
+        -93.0993909,
+        16.7421112
+      ]);
+      marker.addTo(map);
+    }
+    ionViewDidLoad()
+    {
+      
+    }
+    ionViewDidEnter()
+    {
+      
     }
     
     ngOnInit() {
@@ -123,8 +157,8 @@ export class ServiceDetailsPage implements OnInit {
       {
         this.currentModal.dismiss()
       }
-
-
+      
+      
       eval()
       {
         this.comentarios.unshift({
