@@ -19,14 +19,14 @@ import {resolve } from 'q';
   styleUrls: ['./service-details.page.scss'],
 })
 export class ServiceDetailsPage implements OnInit {
-  
+
   currentModal: ModalController
-  
+
   currentSegment: string = "map"
   phoneNumbers:string[] = []
   comentarios:any = []
   commentFormGroup:FormGroup
-  
+
   constructor(
     private nav: NavParams,
     private llamada: CallNumber,
@@ -49,25 +49,25 @@ export class ServiceDetailsPage implements OnInit {
         mensaje: 'Excelente servicio',
         valoracion: 5
       })
-      
+
       this.comentarios.push({
         autor: 'Bot 2',
         mensaje: 'Te atienden muy bien',
         valoracion: 5
       })
-      
+
       this.comentarios.push({
         autor: 'Bot 3',
         mensaje: 'Pésimo servicio',
         valoracion: 1
       })
-      
+
       setTimeout(() => {
         //this.showMap()
       }, 1000);
     }
-    
-    
+
+
     showMap()
     {
       var map = new mapboxgl.Map({
@@ -91,22 +91,22 @@ export class ServiceDetailsPage implements OnInit {
     {
       this.showMap()
     }
-    
+
     ngOnInit() {
     }
-    
+
     /**
     * Llamar al CMA
     *
     * @param   {number}  number  Número telefónico del CMA
-    * 
+    *
     */
     async call()
     {
       if(this.phoneNumbers.length > 1)
       {
         let _buttons = []
-        
+
         this.phoneNumbers.forEach(number => {
           _buttons.push(
             {
@@ -135,9 +135,9 @@ export class ServiceDetailsPage implements OnInit {
         {
           this.tryCall(this.phoneNumbers[0])
         }
-        
+
       }
-      
+
       tryCall(number)
       {
         const numero = ''+number
@@ -157,8 +157,8 @@ export class ServiceDetailsPage implements OnInit {
       {
         this.currentModal.dismiss()
       }
-      
-      
+
+
       eval()
       {
         this.comentarios.unshift({
@@ -171,4 +171,3 @@ export class ServiceDetailsPage implements OnInit {
         })
       }
     }
-    
