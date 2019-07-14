@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ServiceDetailsPage } from '../service-details/service-details.page';
 import { MenuController } from '@ionic/angular'
+import { CallNumber } from '@ionic-native/call-number/ngx'
+import { LoadingController } from '@ionic/angular'
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -12,9 +16,17 @@ export class HomePage {
   constructor(
     private openPageAsModal : ModalController,
     private menu: MenuController,
+    private llamada: CallNumber,
+    private loading: LoadingController,
   )
   {
     this.menu.enable(true)
+  }
+
+
+  ionViewDidEnter()
+  {
+    this.load()
   }
 
   /**
@@ -35,5 +47,47 @@ export class HomePage {
     })
 
     return await modal.present()
+  }
+
+  // Llamar al 911
+  call911()
+  {
+    this.llamada.callNumber('911', true)
+    .then(
+      res => console.log(res)
+    )
+    .catch(
+      err => console.error(err)
+    )
+  }
+
+  //Llamar a un contato de emergencia
+  callEmergencyContact()
+  {
+    const numero = '9611812935'
+    this.llamada.callNumber(numero, true)
+    .then(
+      res => console.log(res)
+    )
+    .catch(
+      err => console.error(err)
+    )
+  }
+
+  //Obtener los datos desde la API
+  async load()
+  {
+    const loading = await this.loading.create({
+      message: 'Espere...',
+      translucent: true,
+      backdropDismiss: false,
+      showBackdrop: true
+    });
+
+    await loading.present()
+
+    setTimeout(() => {
+      loading.dismiss()
+    }, 1000);
   }
 }

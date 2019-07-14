@@ -10,7 +10,9 @@ import { ActionSheetController } from '@ionic/angular'
 import { FormGroup, FormBuilder , Validators} from '@angular/forms';
 
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
-import {resolve } from 'q';
+
+import { LoadingController } from '@ionic/angular'
+import { resolve } from 'q';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class ServiceDetailsPage implements OnInit {
     private llamada: CallNumber,
     private actionSheetController: ActionSheetController,
     private formBuilder:FormBuilder,
+    private loading: LoadingController
     )
     {
       mapboxgl.accessToken = 'pk.eyJ1IjoiaWRzZmVybmFuZG8iLCJhIjoiY2p4NHhzZjQ3MDJyNzQzdXJxYW01cGE4NSJ9.703KpAMi7SCviDt79F_Y1g'
@@ -89,8 +92,26 @@ export class ServiceDetailsPage implements OnInit {
     }
     ionViewDidEnter()
     {
+      this.load()
       this.showMap()
     }
+
+    //Obtener los datos desde la API
+  async load()
+  {
+    const loading = await this.loading.create({
+      message: 'Espere...',
+      translucent: true,
+      backdropDismiss: false,
+      showBackdrop: true
+    });
+
+    await loading.present()
+
+    setTimeout(() => {
+      loading.dismiss()
+    }, 1000);
+  }
 
     ngOnInit() {
     }

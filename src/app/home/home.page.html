@@ -65,7 +65,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="6">
-        <div class="pc_cards_coral pc_card">
+        <div class="pc_cards_coral pc_card" (click)="call911()">
             <div class="top_card">
 
             </div>
@@ -83,12 +83,12 @@
             <div class="top_card">
 
             </div>
-            <div class="content_card">
+            <div class="content_card" (click)="callEmergencyContact()">
                 <!--<i class="material-icons pc_card_icon" style="font-size: 5em !important">arrow_back</i>-->
                 <ion-icon class="pc_card_icon" name="person"></ion-icon>
             </div>
             <div style="color: white !important; margin: 0  auto !important; text-align: center">
-                <small style="font-weight:bold; font-size:1.15em">Contacto de emergencia</small>
+                <small style="font-weight:bold; font-size:0.5em">Contacto de emergencia</small>
             </div>
         </div>
       </ion-col>
