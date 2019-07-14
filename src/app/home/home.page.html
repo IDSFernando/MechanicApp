@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-searchbar showCancelButton cancelButtonText="Cancelar" debounce="500" animated placeholder="Busca un servicio en específico"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="palabraBuscada" debounce="500" animated placeholder="Busca un servicio en específico" (search)="buscar($event)"></ion-searchbar>
 
   <ion-grid fixed>
     <ion-row>

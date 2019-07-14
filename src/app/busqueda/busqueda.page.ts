@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-busqueda',
@@ -6,8 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./busqueda.page.scss'],
 })
 export class BusquedaPage implements OnInit {
-
-  constructor() { }
+  busqueda:any = ''
+  constructor(
+    private param:ActivatedRoute,
+    private router:Router,
+  )
+  {
+    this.param.queryParams.subscribe(params => {
+      const busco = params['busco']
+      this.busqueda = busco
+    })
+  }
 
   ngOnInit() {
   }

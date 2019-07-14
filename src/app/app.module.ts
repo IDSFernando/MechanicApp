@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms'
 import { ServiceDetailsPageModule } from './service-details/service-details.module';
 import { AccountPageModule } from './account/account.module';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-import { HereMapComponent } from './here-map/here-map.component';
+import { BusquedaPageModule } from './busqueda/busqueda.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -27,7 +27,8 @@ import { HereMapComponent } from './here-map/here-map.component';
     AppRoutingModule,
     FormsModule,
     ServiceDetailsPageModule,
-    AccountPageModule
+    AccountPageModule,
+    BusquedaPageModule
   ],
   providers: [
     StatusBar,

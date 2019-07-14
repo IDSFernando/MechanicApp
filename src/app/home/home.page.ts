@@ -4,6 +4,7 @@ import { ServiceDetailsPage } from '../service-details/service-details.page';
 import { MenuController } from '@ionic/angular'
 import { CallNumber } from '@ionic-native/call-number/ngx'
 import { LoadingController } from '@ionic/angular'
+import { Router, NavigationExtras } from '@angular/router'
 
 
 @Component({
@@ -12,12 +13,13 @@ import { LoadingController } from '@ionic/angular'
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  palabraBuscada:any
   constructor(
     private openPageAsModal : ModalController,
     private menu: MenuController,
     private llamada: CallNumber,
     private loading: LoadingController,
+    private router: Router,
   )
   {
     this.menu.enable(true)
@@ -89,5 +91,18 @@ export class HomePage {
     setTimeout(() => {
       loading.dismiss()
     }, 1000);
+  }
+
+
+  async buscar(e)
+  {
+    this.palabraBuscada = e.target.value
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "busco": this.palabraBuscada
+      }
+    }
+    this.palabraBuscada = null
+    await this.router.navigate(["busqueda"], navigationExtras)
   }
 }
