@@ -1,21 +1,25 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { RouteReuseStrategy } from '@angular/router'
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
+import { SplashScreen } from '@ionic-native/splash-screen/ngx'
+import { StatusBar } from '@ionic-native/status-bar/ngx'
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component'
+import { AppRoutingModule } from './app-routing.module'
 // la pantalla de login / register
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
 // Formularios
 import { FormsModule } from '@angular/forms'
-import { ServiceDetailsPageModule } from './service-details/service-details.module';
-import { AccountPageModule } from './account/account.module';
-import { CallNumber } from '@ionic-native/call-number/ngx';
-import { BusquedaPageModule } from './busqueda/busqueda.module';
+import { ServiceDetailsPageModule } from './service-details/service-details.module'
+import { AccountPageModule } from './account/account.module'
+import { CallNumber } from '@ionic-native/call-number/ngx'
+import { BusquedaPageModule } from './busqueda/busqueda.module'
+
+import { HttpClientModule } from '@angular/common/http'
+import { HttpModule } from '@angular/http'
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,7 +32,9 @@ import { BusquedaPageModule } from './busqueda/busqueda.module';
     FormsModule,
     ServiceDetailsPageModule,
     AccountPageModule,
-    BusquedaPageModule
+    BusquedaPageModule,
+    HttpClientModule,
+    HttpModule,
   ],
   providers: [
     StatusBar,
