@@ -53,7 +53,17 @@ export class RESTService {
     return this.api.post(`${this.db}/signup`, {
       username: credentials.username,
       email: credentials.email,
-      password: credentials.password
+      password: credentials.password,
+      name: credentials.name,
+      lastname: credentials.lastname
     }, this.httpOptions)
+  }
+
+  /**
+   * Obtener los datos del usaurio en sesión
+   */
+  getUserData(credentials:any)
+  {
+    return this.api.get(`${this.db}/users/current?token=${credentials.token}` ,this.httpOptions)
   }
 }

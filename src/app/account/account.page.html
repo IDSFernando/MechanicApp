@@ -19,7 +19,7 @@
         <ion-label>
           Nombre:
         </ion-label>
-        <ion-input outlineInput value="Luis Fernando"></ion-input>
+        <ion-input outlineInput value="{{ userdata.name }}"></ion-input>
       </ion-item>
       
       <ion-item>
@@ -46,13 +46,13 @@
       <ion-grid>
         <ion-row>
           <ion-col size="6">
-            <ion-button color="primary" fill="outline">
+            <ion-button color="primary" fill="outline" (click)="cerrarSesion()">
               <ion-ripple-effect></ion-ripple-effect>
               Cerrar mi sesión
             </ion-button>
           </ion-col>
           <ion-col size="6">
-            <ion-button color="danger" fill="outline">
+            <ion-button color="danger" fill="outline" (click)="deleteAccount()">
               <ion-ripple-effect></ion-ripple-effect>
               Eliminar mi cuenta
             </ion-button>

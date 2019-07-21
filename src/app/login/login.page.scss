@@ -1,3 +1,11 @@
+
+$bg_color: #e9edf2;
+$rgba_bg_color: rgba(233, 237, 242, 0.8);
+$bg_shadow: #dadfe6;
+$bg_input: #fcfcfc;
+$bg_button: #6c8eef;
+$bg_button-shadow:rgba(96, 129, 219, 1);
+
 ion-card
 {
   height: 30vh !important;
@@ -7,7 +15,7 @@ ion-card
 
 h5
 {
-    color: #7bc6cc !important;
+    color: $bg_button !important;
     font-weight: bold !important;
 }
 
@@ -17,40 +25,36 @@ img
   width: 100% !important;
 }
 
-
-ion-card-title, ion-card-subtitle {
-  color: #e55d87 !important;
-}
-
 .login_input
 {
   border-radius: 1em !important;
-  background-color: #e3e5e8 !important;
+  background-color: $bg_input !important;
   text-align: center !important;
-  color: black !important;
-}
-
-.register_input
-{
-  border-bottom: solid 1px #be93c5;
-  text-align: center !important;
-  padding: 1em;
-  color: #be93c5 !important;
+  color: $bg_button !important;
 }
 
 .login_button
 {
-  --background: #7bc6cc !important;
-  --border-color: #7bc6cc !important;
+  --background: $bg_button !important;
+  --border-color: $bg_button !important;
   --border-radius: 1em !important;
-  --background-activated: #7bc6cc !important;
-  --background-focused: #7bc6cc !important;
-  background-color: #7bc6cc;
+  --background-activated: $bg_button !important;
+  --background-focused: $bg_button !important;
+  background-color: $bg_button;
   --color: white !important;
   --color-activated: white !important;
   --color-focused: white !important;
   font-weight: bold;
   transition: ease-in-out .3s;
+  border-radius: 1em !important;
+
+  margin-bottom: 1em !important;
+
+  -webkit-box-shadow: 0px 13px 30px -10px $bg_button-shadow;
+  -moz-box-shadow: 0px 13px 30px -10px $bg_button-shadow;
+  box-shadow: 0px 13px 30px -10px $bg_button-shadow;
+
+
   &:focus
   {
     --color: white !important;
@@ -59,12 +63,12 @@ ion-card-title, ion-card-subtitle {
     --color: white !important;
   }
   &:active{
-    background-color: #7bc6cc;
+    background-color: $bg_button;
     --color: white;
     --color-activated: white !important;
     --color-focused: white !important;
     font-weight: bold;
-    transform: scale(0.85);
+    transform: scale(0.95);
     transition: ease-in-out .3s;
   }
 }
@@ -79,13 +83,17 @@ ion-card-title, ion-card-subtitle {
     align-items: center;
     justify-content: center;
   }
-  
   .content {
     text-align: center;
-    background-color: rgba($color: white, $alpha: 1);
+    background-color:$rgba_bg_color;
     border-radius: 1em;
     width: 90%;
     height: auto !important;
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+    // Solo funciona con Safari, trataré de adaptarlo para Chrome
+    backdrop-filter: saturate(120%) blur(20px);
     .buttons-container {
       margin-top: 30px;
     }

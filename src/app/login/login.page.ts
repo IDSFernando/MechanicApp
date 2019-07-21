@@ -11,8 +11,11 @@ const urlLogin = "assets/video/background.mp4"
 const urlRegister = "assets/video/background_register.mp4"
 
 import { RESTService } from '../rest.service'
+import { ThrowStmt } from '@angular/compiler';
 
-
+interface InputError {
+  msg: string
+}
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -53,6 +56,8 @@ export class LoginPage implements OnInit {
       'email': ['', Validators.compose([Validators.maxLength(30), Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'), Validators.required])],
       'telefono': ['', Validators.required],
       'password': ['', Validators.required],
+      'name': ['', Validators.required],
+      'lastname': ['', Validators.required],
     })
   }
 
@@ -68,54 +73,135 @@ export class LoginPage implements OnInit {
       keyboardClose: true,
       translucent: true
     })
-    await loader.present()
-    this.api.login(
-      {
-        email: this.listFormGroup.get('email').value,
-        password: this.listFormGroup.get('password').value,
-      }
-    )
-    .subscribe(
-      response => 
-      {
-        console.log(response)
-        loader.dismiss()
-      },
-      error => {
-        loader.dismiss()
-        this.showAlert(error.message)
-      }
-    )
+
+    let hasErrors = false
+
+    const mail = this.listFormGroup.get('email').value
+    const pass = this.listFormGroup.get('password').value
+
+    if(mail.trim().length == 0)
+    {
+      await this.showAlert('El correo no es válido')
+      hasErrors = true
+    }
+    if(pass.trim().length == 0)
+    {
+      await this.showAlert('La contraseña no es válida')
+      hasErrors = true
+    }
+
+    if(!hasErrors)
+    {
+      await loader.present()
+      this.api.login(
+        {
+          email: this.listFormGroup.get('email').value,
+          password: this.listFormGroup.get('password').value,
+        }
+      )
+      .subscribe(
+        response => 
+        {
+          console.log(response)
+          loader.dismiss()
+          localStorage.setItem('auth_token', response['data'].token)
+          console.log(response['data'].token)
+          this.router.navigateByUrl('home')
+        },
+        error => {
+          loader.dismiss()
+          this.showAlert('No pudimos encontrar un usuario con esas credenciales')
+        }
+      )
+    }
     // this.router.navigateByUrl('home')
   }
 
 
   async register()
   {
+
+    let hasErrors = false
+
     let loader = await this.loading.create({
-      message: 'Iniciando sesión...',
+      message: 'Estamos creando tu cuenta...',
       backdropDismiss: false,
       keyboardClose: true,
       translucent: true
     })
-    await loader.present()
-    this.api.register({
-      username: this.registerFormGroup.get('username').value,
-      email: this.registerFormGroup.get('email').value,
-      password: this.registerFormGroup.get('password').value
-    })
-    .subscribe(
-      response => {
-        console.log(response)
-        loader.dismiss()
-      }
-      ,
-      error => {
-        console.log(error)
-        loader.dismiss()
-        this.showAlert(error.message)
-      }
-    )
+
+    // Validar que los campos no lleven espacios al inicio y al final
+    const _name = this.registerFormGroup.get('name').value
+    const _lastname = this.registerFormGroup.get('lastname').value
+    const _usrname = this.registerFormGroup.get('username').value
+    const _mail = this.registerFormGroup.get('email').value
+    const _pass = this.registerFormGroup.get('password').value
+    if(_name.trim().length == 0)
+    {
+      await this.showAlert('El nombre no es válido')
+      hasErrors = true
+    }
+
+    if(_lastname.trim().length == 0)
+    {
+      await this.showAlert('El apellido no es válido')
+      hasErrors = true
+    }
+
+    if(_usrname.trim().length == 0)
+    {
+      await this.showAlert('El nombre de usuario no es válido')
+      hasErrors = true
+    }
+
+    if(_mail.trim().length == 0)
+    {
+      await this.showAlert('El correo no es válido')
+      hasErrors = true
+    }
+
+    if(_pass.trim().length == 0)
+    {
+      await this.showAlert('La contraseña no es válida')
+      hasErrors = true
+    }
+
+    if(!hasErrors)
+    {
+      await loader.present()
+      this.api.register({
+        username: this.registerFormGroup.get('username').value,
+        email: this.registerFormGroup.get('email').value,
+        password: this.registerFormGroup.get('password').value,
+        name: _name,
+        lastname: _lastname
+      })
+      .subscribe(
+        response => {
+          /*
+
+          email: "test@test.com"
+
+          message: "Usuario registrado"
+
+          status: "success"
+
+          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTU2MzcyNjQ3NH0.xdRNDQL1UaEjFl_JTyvuQppOYRG9DXXPJKeTLGUiolU"
+
+          user_id: 2
+          */
+          loader.dismiss()
+          localStorage.setItem('auth_token', response['data'].token)
+          this.router.navigateByUrl('home')
+        }
+        ,
+        error => {
+          console.log(error)
+          loader.dismiss()
+          this.showAlert(error.message)
+        }
+      )
+    }
   }
 
   /**
@@ -154,7 +240,8 @@ export class LoginPage implements OnInit {
     let alert = await this.alert.create({
       header: "Mechanicapp",
       message: text,
-      buttons: ['Ok']
+      buttons: ['Ok'],
+      translucent: true
     });
     return await alert.present();
   }
