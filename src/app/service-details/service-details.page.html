@@ -1,6 +1,6 @@
 <ion-header translucent="true" no-border>
   <ion-toolbar>
-    <ion-button fill="clear" start (click)="leave()" color="dark">
+    <ion-button fill="clear" start (click)="leave()" color="warning">
       <ion-ripple-effect></ion-ripple-effect>
       Cerrar
     </ion-button>
@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-fab color="success" vertical="bottom" horizontal="end" slot="fixed" (click)="call(9612387823)">
+  <ion-fab color="dark" vertical="bottom" horizontal="end" slot="fixed" (click)="call()">
     <ion-fab-button>
       <ion-ripple-effect></ion-ripple-effect>
       <ion-icon name="call"></ion-icon>
@@ -19,18 +19,18 @@
     <ion-grid fixed>
       <ion-row>
         <ion-col size="12">
-          <ion-segment [(ngModel)]="currentSegment" value="map">
+          <ion-segment [(ngModel)]="currentSegment" value="map" color="warning">
             <ion-segment-button value="map">
-              <ion-label>Ubicación</ion-label>
-              <ion-icon name="pin"></ion-icon>
+              <ion-label color="dark">Ubicación</ion-label>
+              <ion-icon color="dark" name="pin"></ion-icon>
             </ion-segment-button>
             <ion-segment-button value="about">
-              <ion-label>Información</ion-label>
-              <ion-icon name="information-circle"></ion-icon>
+              <ion-label color="dark">Información</ion-label>
+              <ion-icon color="dark" name="information-circle"></ion-icon>
             </ion-segment-button>
             <ion-segment-button value="comments">
-              <ion-label>Opiniones</ion-label>
-              <ion-icon name="text"></ion-icon>
+              <ion-label color="dark">Opiniones</ion-label>
+              <ion-icon name="text" color="dark"></ion-icon>
             </ion-segment-button>
           </ion-segment>
         </ion-col>

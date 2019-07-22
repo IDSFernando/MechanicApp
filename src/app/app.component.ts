@@ -82,14 +82,6 @@ export class AppComponent {
     private router: Router
   ) {
     this.initializeApp();
-    this.howManyTimesDidIAskedYourCredentials += 1
-    setTimeout(() => {
-      if(this.howManyTimesDidIAskedYourCredentials > 3)
-      {
-        this.getUserData()
-        this.howManyTimesDidIAskedYourCredentials += 1
-      }
-    }, 1000);
   }
 
   initializeApp() {
@@ -97,27 +89,31 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
-      this.getUserData()
     });
   }
 
   getUserData()
   {
-    this.api.getUserData({
-      token: localStorage.getItem('auth_token')
-    }).subscribe(
-      response => {
-        this.userdata.email = response['user'].email
-        this.userdata.id = parseInt( response['user'].id )
-        this.userdata.lastname = response['user'].lastname
-        this.userdata.name = response['user'].name
-        this.userdata.userImage = response['user'].user_image_url
-        this.userdata.username = response['user'].username
-      },
-      error => {
-        this.router.navigateByUrl('')
-      }
-    )
+    const token = localStorage.getItem('auth_token')
+    console.log(token)
+    if(token)
+    {
+      this.api.getUserData({
+        token: localStorage.getItem('auth_token')
+      }).subscribe(
+        response => {
+          this.userdata.email = response['user'].email
+          this.userdata.id = parseInt( response['user'].id )
+          this.userdata.lastname = response['user'].lastname
+          this.userdata.name = response['user'].name
+          this.userdata.userImage = response['user'].user_image_url
+          this.userdata.username = response['user'].username
+        },
+        error => {
+          this.router.navigateByUrl('')
+        }
+      )
+    }
   }
 
   async openAccountDetails()

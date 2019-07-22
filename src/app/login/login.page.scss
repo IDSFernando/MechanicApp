@@ -1,5 +1,9 @@
 
-$bg_color: #e9edf2;
+$bg_yellow: rgb(242, 206, 0);
+$rgba_bg_yellow: rgba(242, 206, 0,0.8);
+$bg_yellow_shadow: rgba(219, 188, 11, 1);
+
+$bg_color: white;
 $rgba_bg_color: rgba(233, 237, 242, 0.8);
 $bg_shadow: #dadfe6;
 $bg_input: #fcfcfc;
@@ -15,7 +19,7 @@ ion-card
 
 h5
 {
-    color: $bg_button !important;
+    color: black !important;
     font-weight: bold !important;
 }
 
@@ -30,43 +34,43 @@ img
   border-radius: 1em !important;
   background-color: $bg_input !important;
   text-align: center !important;
-  color: $bg_button !important;
+  color: black !important;
+  font-weight: bold;
 }
 
 .login_button
 {
-  --background: $bg_button !important;
-  --border-color: $bg_button !important;
+  --background: $bg_yellow !important;
+  --border-color: $bg_yellow !important;
   --border-radius: 1em !important;
-  --background-activated: $bg_button !important;
-  --background-focused: $bg_button !important;
-  background-color: $bg_button;
-  --color: white !important;
-  --color-activated: white !important;
-  --color-focused: white !important;
+  --background-activated: $bg_yellow !important;
+  --background-focused: $bg_yellow !important;
+  background-color: $bg_yellow;
+  --color: black !important;
+  --color-activated: blackc !important;
+  --color-focused: black !important;
   font-weight: bold;
   transition: ease-in-out .3s;
   border-radius: 1em !important;
 
   margin-bottom: 1em !important;
 
-  -webkit-box-shadow: 0px 13px 30px -10px $bg_button-shadow;
-  -moz-box-shadow: 0px 13px 30px -10px $bg_button-shadow;
-  box-shadow: 0px 13px 30px -10px $bg_button-shadow;
+  -webkit-box-shadow: 0px 13px 30px -15px $bg_yellow_shadow;
+  -moz-box-shadow: 0px 13px 30px -15px $bg_yellow_shadow;
+  box-shadow: 0px 13px 30px -15px $bg_yellow_shadow;
 
 
   &:focus
   {
-    --color: white !important;
+    --color: $bg_yellow !important;
   }
   &:hover{
-    --color: white !important;
+    --color: $bg_yellow !important;
   }
   &:active{
-    background-color: $bg_button;
-    --color: white;
-    --color-activated: white !important;
-    --color-focused: white !important;
+    --color: $bg_yellow;
+    --color-activated: $bg_yellow !important;
+    --color-focused: $bg_yellow !important;
     font-weight: bold;
     transform: scale(0.95);
     transition: ease-in-out .3s;
@@ -85,18 +89,17 @@ img
   }
   .content {
     text-align: center;
-    background-color:$rgba_bg_color;
+    background-color:$bg_color;
     border-radius: 1em;
     width: 90%;
     height: auto !important;
     padding-top: 2em;
     padding-bottom: 2em;
-
-    // Solo funciona con Safari, trataré de adaptarlo para Chrome
-    backdrop-filter: saturate(120%) blur(20px);
     .buttons-container {
       margin-top: 30px;
     }
+
+    transition: ease-in-out .3s !important;
   }
 
   video {

@@ -1,16 +1,18 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
-}
+
+$bg_yellow: rgb(242, 206, 0);
+$rgba_bg_yellow: rgba(242, 206, 0,0.8);
+$bg_yellow_shadow: rgba(219, 188, 11, 1);
+$bg_color: white;
+
 h1
 {
-  color: #7bc6cc;
+  color: $bg_yellow;
 }
 
 ion-card
 {
   background-color: rgba(252, 252, 252,1);
-  color: #7bc6cc !important;
+  color: #fcbf32 !important;
 }
 
 .star

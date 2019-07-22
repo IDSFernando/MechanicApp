@@ -11,11 +11,6 @@ const urlLogin = "assets/video/background.mp4"
 const urlRegister = "assets/video/background_register.mp4"
 
 import { RESTService } from '../rest.service'
-import { ThrowStmt } from '@angular/compiler';
-
-interface InputError {
-  msg: string
-}
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -46,6 +41,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.menu.enable(false)
     this.listFormGroup = this.formBuilder.group({
       'email': ['', Validators.compose([Validators.maxLength(30), Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'), Validators.required])],
       'password': ['', Validators.required]
@@ -178,6 +174,7 @@ export class LoginPage implements OnInit {
       })
       .subscribe(
         response => {
+          console.log(response['token'])
           /*
 
           email: "test@test.com"
@@ -191,7 +188,7 @@ export class LoginPage implements OnInit {
           user_id: 2
           */
           loader.dismiss()
-          localStorage.setItem('auth_token', response['data'].token)
+          localStorage.setItem('auth_token', response['token'])
           this.router.navigateByUrl('home')
         }
         ,
