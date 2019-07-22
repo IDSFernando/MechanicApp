@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, AlertController, ModalController, MenuController } from '@ionic/angular'
+import { NavParams, AlertController, ModalController, MenuController, NavController } from '@ionic/angular'
 import { Router } from '@angular/router'
 interface userData {
   email: string,
@@ -22,6 +22,7 @@ export class AccountPage implements OnInit {
     private nav: NavParams,
     private router: Router,
     private menu: MenuController,
+    private navCtrl: NavController,
   )
   {
     this.currentModal = this.nav.get('modal')
@@ -41,7 +42,7 @@ export class AccountPage implements OnInit {
     localStorage.removeItem('auth_token')
     this.menu.close()
     this.menu.enable(false)
-    this.router.navigateByUrl('')
+    this.navCtrl.navigateRoot([''])
     this.leave()
   }
 

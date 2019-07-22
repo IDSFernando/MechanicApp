@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, ModalController } from '@ionic/angular';
+import { Platform, ModalController, NavController, AlertController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
@@ -79,9 +79,15 @@ export class AppComponent {
     private screen: ScreenOrientation,
     private openPageAsModal : ModalController,
     private api:RESTService,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
+    private alert: AlertController,
+    private events: Events,
   ) {
     this.initializeApp();
+    events.subscribe('user:logged', (a,b) => {
+      this.getUserData()
+    })
   }
 
   initializeApp() {
@@ -89,13 +95,14 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
+      this.getUserData()
     });
   }
 
-  getUserData()
+  async getUserData()
   {
     const token = localStorage.getItem('auth_token')
-    console.log(token)
+
     if(token)
     {
       this.api.getUserData({
@@ -108,8 +115,10 @@ export class AppComponent {
           this.userdata.name = response['user'].name
           this.userdata.userImage = response['user'].user_image_url
           this.userdata.username = response['user'].username
+          this.navCtrl.navigateRoot(['home'])
         },
         error => {
+          this.navCtrl.navigateRoot([''])
           this.router.navigateByUrl('')
         }
       )
@@ -127,5 +136,23 @@ export class AppComponent {
     })
 
     return await modal.present()
+  }
+
+  /**
+   * Mostrar una alerta, ya sea de error o de success
+   *
+   * @param   {String}  text  Texto a mostrar
+   *
+   * @return  {Alert}     Alerta
+   */
+  async showAlert(text:any)
+  {
+    let alert = await this.alert.create({
+      header: "Mechanicapp",
+      message: text,
+      buttons: ['Ok'],
+      translucent: true
+    });
+    return await alert.present();
   }
 }

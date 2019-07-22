@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 //  Formularios
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 //  Loading, Menu y Alert
-import { LoadingController, MenuController, AlertController } from '@ionic/angular'
+import { LoadingController, MenuController, AlertController, NavController } from '@ionic/angular'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
 
 
@@ -11,6 +11,9 @@ const urlLogin = "assets/video/background.mp4"
 const urlRegister = "assets/video/background_register.mp4"
 
 import { RESTService } from '../rest.service'
+import { Events } from '@ionic/angular';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -32,6 +35,8 @@ export class LoginPage implements OnInit {
     private alert: AlertController,
     private loading: LoadingController,
     private api: RESTService,
+    private navCtrl: NavController,
+    private events: Events
   )
   {
     //this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
@@ -102,7 +107,9 @@ export class LoginPage implements OnInit {
           loader.dismiss()
           localStorage.setItem('auth_token', response['data'].token)
           console.log(response['data'].token)
-          this.router.navigateByUrl('home')
+          this.events.publish('user:logged', null, null)
+          this.navCtrl.navigateRoot(['home'])
+          // this.router.navigateByUrl('home')
         },
         error => {
           loader.dismiss()
@@ -189,7 +196,7 @@ export class LoginPage implements OnInit {
           */
           loader.dismiss()
           localStorage.setItem('auth_token', response['token'])
-          this.router.navigateByUrl('home')
+          this.navCtrl.navigateRoot(['home'])
         }
         ,
         error => {
