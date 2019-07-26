@@ -38,37 +38,44 @@ export class AppComponent {
     {
       title: 'Inicio',
       url: '/home',
-      icon: 'home'
+      icon: 'home',
+      color: 'danger'
     },
     {
       title: 'Alineación y balanceo',
       url: '/list',
-      icon: 'repeat'
+      icon: 'repeat',
+      color: 'dark'
     },
     {
       title: 'Inyección electrónica y mecánica',
       url: '/list',
-      icon: 'car'
+      icon: 'car',
+      color: 'dark'
     },
     {
       title: 'Aire acondicionado',
       url: '/list',
-      icon: 'snow'
+      icon: 'snow',
+      color: 'dark'
     },
     {
       title: 'Frenos',
       url: '/list',
-      icon: 'hand'
+      icon: 'hand',
+      color: 'dark'
     },
     {
       title: 'Cajas de velocidad',
       url: '/list',
-      icon: 'speedometer'
+      icon: 'speedometer',
+      color: 'dark'
     },
     {
       title: 'Pintura',
       url: '/list',
-      icon: 'brush'
+      icon: 'brush',
+      color: 'dark'
     }
   ];
 

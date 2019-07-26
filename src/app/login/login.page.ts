@@ -55,8 +55,8 @@ export class LoginPage implements OnInit {
     this.registerFormGroup = this.formBuilder.group({
       'username': ['', Validators.required],
       'email': ['', Validators.compose([Validators.maxLength(30), Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'), Validators.required])],
-      'telefono': ['', Validators.required],
       'password': ['', Validators.required],
+      'password_again': ['', Validators.required],
       'name': ['', Validators.required],
       'lastname': ['', Validators.required],
     })
@@ -79,12 +79,13 @@ export class LoginPage implements OnInit {
 
     const mail = this.listFormGroup.get('email').value
     const pass = this.listFormGroup.get('password').value
-
+    
     if(mail.trim().length == 0)
     {
       await this.showAlert('El correo no es válido')
       hasErrors = true
     }
+    
     if(pass.trim().length == 0)
     {
       await this.showAlert('La contraseña no es válida')
@@ -139,6 +140,8 @@ export class LoginPage implements OnInit {
     const _usrname = this.registerFormGroup.get('username').value
     const _mail = this.registerFormGroup.get('email').value
     const _pass = this.registerFormGroup.get('password').value
+    const pass_same = this.registerFormGroup.get('password_again').value
+
     if(_name.trim().length == 0)
     {
       await this.showAlert('El nombre no es válido')
@@ -169,6 +172,12 @@ export class LoginPage implements OnInit {
       hasErrors = true
     }
 
+    if(pass_same.trim() != _pass.trim())
+    {
+      await this.showAlert('Las contraseñas no coinciden')
+      hasErrors = true
+    }
+
     if(!hasErrors)
     {
       await loader.present()
@@ -196,6 +205,7 @@ export class LoginPage implements OnInit {
           */
           loader.dismiss()
           localStorage.setItem('auth_token', response['token'])
+          this.events.publish('user:logged', null, null)
           this.navCtrl.navigateRoot(['home'])
         }
         ,

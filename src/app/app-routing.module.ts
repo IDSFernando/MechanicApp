@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'busqueda', loadChildren: './busqueda/busqueda.module#BusquedaPageModule' },
   { path: 'servicio', loadChildren: './servicio/servicio.module#ServicioPageModule' },
+  { path: 'filtros', loadChildren: './filtros/filtros.module#FiltrosPageModule' },
 ];
 /*
 const routes: Routes = [

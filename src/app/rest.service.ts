@@ -34,7 +34,7 @@ export class RESTService {
    *
    * @return  {JSON}  Token
    */
-  login(credentials:any)
+  login(credentials:any): Observable<any>
   {
     return this.api.post(`${this.db}/login`, {
       email: credentials.email,
@@ -48,7 +48,7 @@ export class RESTService {
    * @param   {JSON}  credentials  Credenciales
    * 
    */
-  register(credentials:any)
+  register(credentials:any): Observable<any>
   {
     return this.api.post(`${this.db}/signup`, {
       username: credentials.username,
@@ -62,7 +62,7 @@ export class RESTService {
   /**
    * Obtener los datos del usaurio en sesión
    */
-  getUserData(credentials:any)
+  getUserData(credentials:any): Observable<any>
   {
     return this.api.get(`${this.db}/users/current?token=${credentials.token}` ,this.httpOptions)
   }

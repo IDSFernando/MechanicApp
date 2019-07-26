@@ -1,14 +1,41 @@
-<ion-header>
+<ion-header translucent="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button
         text="Volver"
+        defaultHref="/home"
       ></ion-back-button>
     </ion-buttons>
     <ion-title>{{ busqueda }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showFiltersBar()">
+        <ion-icon slot="icon-only" name="options"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content fullscreen="true">
+  <ion-grid *ngIf="!showingFiltersBar == false">
+    <ion-row nowrap class="forecast_container">
+      <ion-col size="5">
+        <ion-button color="primary" size="small" expand="full" shape="round" (click)="openCatPopup()">
+          Categoría ({{ filtro_categoria }})
+          <ion-icon slot="end" name="arrow-dropdown"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-button color="primary" size="small" expand="full" shape="round" (click)="openRatePopup()">
+          Valoración ({{ filtro_valoracion}})
+          <ion-icon slot="end" name="arrow-dropdown"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-button color="primary" size="small" expand="full" shape="round" (click)="openLocPopup()">
+          Ubicación ({{ filtro_ubicacion }})
+          <ion-icon slot="end" name="arrow-dropdown"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

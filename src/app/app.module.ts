@@ -19,6 +19,7 @@ import { BusquedaPageModule } from './busqueda/busqueda.module'
 
 import { HttpClientModule } from '@angular/common/http'
 import { HttpModule } from '@angular/http'
+import { FiltrosPageModule } from './filtros/filtros.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { HttpModule } from '@angular/http'
     BusquedaPageModule,
     HttpClientModule,
     HttpModule,
+    FiltrosPageModule,
   ],
   providers: [
     StatusBar,
