@@ -19,7 +19,9 @@ import { BusquedaPageModule } from './busqueda/busqueda.module'
 
 import { HttpClientModule } from '@angular/common/http'
 import { HttpModule } from '@angular/http'
-import { FiltrosPageModule } from './filtros/filtros.module';
+import { FiltrosPageModule } from './filtros/filtros.module'
+
+import { Geolocation } from '@ionic-native/geolocation/ngx'
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +45,8 @@ import { FiltrosPageModule } from './filtros/filtros.module';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ScreenOrientation,
-    CallNumber
+    CallNumber,
+    Geolocation,
   ],
   bootstrap: [AppComponent]
 })

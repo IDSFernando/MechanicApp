@@ -108,7 +108,7 @@ export class AppComponent {
 
   async getUserData()
   {
-    const token = localStorage.getItem('auth_token')
+    const token = await localStorage.getItem('auth_token')
 
     if(token)
     {

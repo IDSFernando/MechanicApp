@@ -6,13 +6,23 @@ import { CallNumber } from '@ionic-native/call-number/ngx'
 import { LoadingController } from '@ionic/angular'
 import { Router, NavigationExtras } from '@angular/router'
 import { RESTService } from '../rest.service'
+
+
+import { Geolocation } from '@ionic-native/geolocation/ngx'
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  
   palabraBuscada: any
+
+  // Ubicación del cliente
+  latitude:any = null
+  longitude:any = null
+
   constructor(
     private openPageAsModal : ModalController,
     private menu: MenuController,
@@ -21,6 +31,7 @@ export class HomePage {
     private router: Router,
     private api:RESTService,
     private alert: AlertController,
+    private gps: Geolocation,
   )
   {
     this.menu.enable(true)
@@ -88,7 +99,7 @@ export class HomePage {
   async load()
   {
     const loading = await this.loading.create({
-      message: 'Espere...',
+      message: 'Estamos buscando talleres cerca de tí...',
       translucent: true,
       backdropDismiss: false,
       showBackdrop: true
@@ -97,23 +108,21 @@ export class HomePage {
     await loading.present()
 
     // Cambiar por obtener los cma's cercanos
-    this.api.getUserData({
-      token: localStorage.getItem('auth_token')
-    }).subscribe(
-      response => {
-        loading.dismiss()
-        // this.userdata.email = response['user'].email
-        // this.userdata.id = parseInt( response['user'].id )
-        // this.userdata.lastname = response['user'].lastname
-        // this.userdata.name = response['user'].name
-        // this.userdata.userImage = response['user'].user_image_url
-        // this.userdata.username = response['user'].username
+    this.gps.getCurrentPosition().then(
+      (pos) => {
+        this.latitude = pos.coords.latitude
+        this.longitude = pos.coords.longitude
+        loading.dismiss()        
+        this.showAlert(`
+          Latitud: ${this.latitude}\n
+          Longitud: ${this.longitude}
+        `)
       },
-      error => {
+      (error) => {
+        this.showAlert('No pudimos acceder a tu ubicación, verifica lo siguiente:\n1. ¿Está encendido el GPS de tu dispositivo?\n2. ¿Nos otorgaste acceso a usar tu GPS?')
         loading.dismiss()
-        this.showAlert('No pudimos obtener tus credenciales de acceso')
-        this.router.navigateByUrl('')
       }
+
     )
   }
 
