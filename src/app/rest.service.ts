@@ -67,6 +67,17 @@ export class RESTService {
     return this.api.get(`${this.db}/users/current?token=${credentials.token}` ,this.httpOptions)
   }
 
+  /**
+   * Actualizar los datos del cliente
+   *
+   * @param   {JSON}              data  Array de datos
+   *
+   */
+  updateMyData(data:any): Observable<any>
+  {
+    return this.api.put(`${this.db}/users/current`, data, this.httpOptions)
+  }
+
 
   /**
    * Borrar la cuenta del cliente

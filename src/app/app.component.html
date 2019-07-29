@@ -6,11 +6,13 @@
           <!--<ion-title>Luis Fernando</ion-title>-->
           <ion-grid fixed>
             <ion-row>
-              <ion-col size="4">
-                <ion-icon name="contact" color="warning" style="font-size: 3em; padding-top: 0.15em; padding-left: 0.15em"></ion-icon>
+              <ion-col size="12" style="padding: 0; text-align: center">
+                <ion-icon name="contact" color="warning" style="font-size: 5em; padding-top: 0.15em; padding-left: 0.15em; text-align: center !important"></ion-icon>
               </ion-col>
-              <ion-col size="8">
-                <h4 color="primary" style="position: absolute;bottom: 0">{{ userdata.username }}</h4>
+              <ion-col size="12" style="padding: 0; margin-top: -27px">
+                <h2 color="dark" style="text-align: center; padding: 0 !important">{{ userdata.name }}</h2>
+                <br>
+                <h5 color="warning" style="margin-top: -32px; color: #9c9c9c !important; text-align: center">@{{ userdata.username }}</h5>
               </ion-col>
             </ion-row>
           </ion-grid>
