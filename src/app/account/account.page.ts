@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, AlertController, ModalController, MenuController, NavController } from '@ionic/angular'
+import { NavParams, AlertController, ModalController, MenuController, NavController, Events } from '@ionic/angular'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { RESTService } from '../rest.service';
 interface userData {
@@ -19,6 +20,7 @@ interface userData {
 export class AccountPage implements OnInit {
   currentModal: ModalController
   userdata: userData
+  updateFormGroup:FormGroup
   constructor(
     private nav: NavParams,
     private router: Router,
@@ -26,10 +28,18 @@ export class AccountPage implements OnInit {
     private navCtrl: NavController,
     private api: RESTService,
     private alert: AlertController,
+    private formBuilder:FormBuilder,
+    private events: Events,
   )
   {
     this.currentModal = this.nav.get('modal')
     this.userdata = this.nav.get('userdata')
+
+    this.updateFormGroup = this.formBuilder.group({
+      'username': [this.userdata.username, Validators.required],
+      'name': [this.userdata.name, Validators.required],
+      'lastname': [this.userdata.lastname, Validators.required],
+    })
   }
 
   ngOnInit() {
@@ -47,6 +57,104 @@ export class AccountPage implements OnInit {
     this.menu.enable(false)
     this.navCtrl.navigateRoot([''])
     this.leave()
+  }
+
+  async updateMyData()
+  {
+    const passwordPrompt = await this.alert.create({
+      header: 'Para actualizar tus datos necesitas ingresar tu contraseña',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: 'Ingresa tu contraseña actual',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            //Cancelado
+          }
+        },
+        {
+          text: 'Actualizar mis datos',
+          handler: (input) => {
+            if(input.password.trim().length > 0)
+            {
+              //API y validaciones
+              let hasErrors:boolean = false
+              let errors = `
+              Tienes los siguientes errores:
+              <ol>
+              `
+              if(this.updateFormGroup.get('username').value.trim().length <= 3)
+              {
+                errors += `<li>El nombre de usuario no es válido</li>`
+                hasErrors = true
+              }
+
+
+              if(this.updateFormGroup.get('name').value.trim().length <= 3)
+              {
+                errors += `<li>El nombre no es válido</li>`
+                hasErrors = true
+              }
+
+              if(this.updateFormGroup.get('lastname').value.trim().length <= 3)
+              {
+                errors += `<li>Tus apellidos no son válidos</li>`
+                hasErrors = true
+              }
+
+
+              errors += `
+                </ol>
+                Por favor llénalos correctamente.
+              `
+              if(hasErrors)
+              {
+                this.showAlert(errors)
+              }
+              else
+              {
+                const _token = localStorage.getItem('auth_token')
+                this.api.updateMyData({
+                  name: this.updateFormGroup.get('name').value.trim(),
+                  lastname: this.updateFormGroup.get('lastname').value.trim(),
+                  username: this.updateFormGroup.get('username').value.trim(),
+                  password: input.password.trim(),
+                  token: _token
+                })
+                .subscribe(
+                  (data) => {
+                    this.showAlert(`Tus datos se han actualizado`)
+                    this.events.publish('user:logged', null, null)
+                    this.currentModal.dismiss()
+                  },
+                  (error) => {
+                    if(error.status == 403)
+                    {
+                      this.showAlert(`Upss, la contraseña no es correcta, intenta de nuevo.`)
+                    }
+                    else
+                    {
+                      this.showAlert(this.objToString(error))
+                    }
+                  }
+                )
+              }
+            }
+            else
+            {
+              this.showAlert('El campo de contraseña es necesario')
+            }
+          }
+        }
+      ]
+    })
+    await passwordPrompt.present()
   }
 
   async deleteAccount()

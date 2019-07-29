@@ -12,30 +12,47 @@
   <h1 style="font-weight: bold; font-size: 1.35em">
     Información básica
   </h1>
+
+  <!-- 
+
+    email: string,
+  lastname: string,
+  id: number,
+  name: string,
+  username: string,
+  userImage: string
+
+
+  -->
   
-  <form action="">
+  <form [formGroup]='updateFormGroup'>
     <ion-item-group>
       <ion-item>
         <ion-label>
           Nombre:
         </ion-label>
-        <ion-input outlineInput value="{{ userdata.name }}"></ion-input>
+        <ion-input formControlName="name" outlineInput></ion-input>
       </ion-item>
-      
       <ion-item>
         <ion-label>
-          Número telefónico:
+          Nombre de usuario:
         </ion-label>
-        <ion-input outlineInput value="9611003141"></ion-input>
+        <ion-input formControlName="username" outlineInput></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Apellidos:
+        </ion-label>
+        <ion-input formControlName="lastname" outlineInput></ion-input>
       </ion-item>
     </ion-item-group>
     <br>
     <ion-item-group>
       <h1 style="font-weight: bold; font-size: 1.35em">Seguridad</h1>
       <br>
-      <ion-button color="warning" fill="outline">
+      <ion-button (click)="updateMyData()" color="warning" fill="outline" [disabled]="updateFormGroup.invalid">
         <ion-ripple-effect></ion-ripple-effect>
-        Cambiar mi contraseña
+        Actualizar mis datos
       </ion-button>
     </ion-item-group>
     
