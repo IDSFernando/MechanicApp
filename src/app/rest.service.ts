@@ -93,4 +93,11 @@ export class RESTService {
   {
     return this.api.get(`${this.db}/services?token=${token}`)
   }
+
+
+
+  getCmaInfo(data:any): Observable<any>
+  {
+    return this.api.get(`${this.db}/cmas/${data.id}?token=${data.token}`, this.httpOptions)
+  }
 }

@@ -56,15 +56,34 @@ export class HomePage {
    */
   async openServiceDetails(id)
   {
-    let modal = await this.openPageAsModal.create({
-      component: ServiceDetailsPage,
-      componentProps: {
-        modal: this.openPageAsModal,
-        id: id
-      }
+    let cma = null
+    await this.api.getCmaInfo({
+      id: id,
+      token: localStorage.getItem('auth_token')
     })
-
-    return await modal.present()
+    .subscribe(
+      async (info) => {
+        info.cma.forEach(async element => {
+          const modal = await this.openPageAsModal.create({
+            component: ServiceDetailsPage,
+            componentProps: {
+              modal: this.openPageAsModal,
+              id: id,
+              cma: element
+            }
+          })
+          try{
+            return await modal.present()
+          }
+          catch(errr){
+            this.showAlert(errr)
+          }
+        });
+      },
+      (error) => {
+        this.showAlert(this.objToString(error))
+      }
+    )
   }
 
   // Llamar al 911
@@ -82,7 +101,7 @@ export class HomePage {
   //Llamar a un contato de emergencia
   callEmergencyContact()
   {
-    const numero = '9611812935'
+    const numero = '9611319085'
     this.llamada.callNumber(numero, true)
     .then(
       res => console.log(res)
@@ -114,8 +133,30 @@ export class HomePage {
           token: localStorage.getItem('auth_token')
         })
         .subscribe(
-          (talleres) => {
-            this.showAlert(this.objToString(talleres))
+          (data) => {
+            // Regresa algo así
+            // {
+            //   "id": 3,
+            //   "name": "Taller de prueba 1",
+            //   "grade_average": 0.9,
+            //   "address": "Carretera a Suchiapa entre 2da. y 3ra. Sur Pte.",
+            //   "latitude": "16.702634",
+            //   "longitude": "-93.107404",
+            //   "neighborhood": "Colonia El Jobo",
+            //   "city": "Tuxtla Gutiérrez",
+            //   "state": "Chiapas",
+            //   "country": "México",
+            //   "cmv_type_id": 1,
+            //   "cmv_image_url": null,
+            //   "notes": null,
+            //   "active": 1,
+            //   "created_at": null,
+            //   "updated_at": null,
+            //   "distance": 191
+            // },
+            data.cmas.forEach(taller => {
+              this.cmasCercanos.push(taller)
+            });
           },
           (error) => {
             this.showAlert(this.objToString(error.error))
@@ -128,6 +169,8 @@ export class HomePage {
       }
 
     )
+
+    return Promise.resolve(this.cmasCercanos)
   }
 
   /**
@@ -186,7 +229,8 @@ export class HomePage {
 
   refresh(e)
   {
-   this.load()
+    this.cmasCercanos = []
+    this.load()
     e.target.complete()
   }
 }

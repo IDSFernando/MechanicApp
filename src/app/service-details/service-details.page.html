@@ -4,7 +4,7 @@
       <ion-ripple-effect></ion-ripple-effect>
       Cerrar
     </ion-button>
-    <ion-title>Taller Don Juan</ion-title>
+    <ion-title>{{ currentCMA.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -54,11 +54,8 @@
                 <ion-card-header>
                   <ion-card-subtitle>Valoración</ion-card-subtitle>
                   <ion-card-title>
-                    <ion-icon name="star" class="star"></ion-icon>
-                    <ion-icon name="star" class="star"></ion-icon>
-                    <ion-icon name="star" class="star"></ion-icon>
-                    <ion-icon name="star" class="star"></ion-icon>
-                    <ion-icon name="star-half" class="star"></ion-icon>
+                    <ion-icon name="star" class="star" color="warning" *ngFor="let star of [].constructor(roundedRate)"></ion-icon>
+                    <ion-icon name="star" class="star" color="light" *ngFor="let star of [].constructor(5-roundedRate)"></ion-icon>
                   </ion-card-title>
                 </ion-card-header>
               </ion-card>
@@ -67,7 +64,7 @@
               <ion-card>
                 <ion-card-header>
                   <ion-card-subtitle>Dirección del taller</ion-card-subtitle>
-                  <ion-card-title>Avenida Salvador Urbina, Colonia Bienestar Social; Tuxtla Gutiérrez</ion-card-title>
+                  <ion-card-title>{{ currentCMA.address }}</ion-card-title>
                 </ion-card-header>
               </ion-card>
             </ion-col>
@@ -75,10 +72,7 @@
               <h1>Conoce el lugar:</h1>
               <br>
               <ion-card>
-                <img src="https://blog.reparacion-vehiculos.es/hs-fs/hubfs/Imágenes_Post/Julio%202018/errores%20cambio-aceite.jpg?width=800&name=errores%20cambio-aceite.jpg" alt="">
-              </ion-card>
-              <ion-card>
-                <img src="http://carclubfirestonecr.com/wp-content/uploads/2015/10/cambio-llantas1.jpg" alt="">
+                <img [src]="currentCMA.cmv_image_url" alt="Mechanicapp">
               </ion-card>
             </ion-col>
             <ion-col size="12">
@@ -101,7 +95,7 @@
               <ion-card>
                 <ion-card-header>
                   <ion-card-subtitle>Encargado del taller</ion-card-subtitle>
-                  <ion-card-title>Juan Pérez</ion-card-title>
+                  <ion-card-title>Anónimo</ion-card-title>
                 </ion-card-header>
               </ion-card>
             </ion-col>
@@ -149,7 +143,7 @@
                     <ion-grid fixed>
                       <ion-row>
                         <ion-col size="10">
-                          <ion-textarea formControlName="comment" style="border-bottom: solid 1px #488aff !important" placeholder="Escribe tu opinión acerca de este taller"></ion-textarea>
+                          <ion-textarea formControlName="comment" style="border-bottom: solid 1px #488aff !important" placeholder="Escribe tu opinión"></ion-textarea>
                         </ion-col>
                         <ion-col size="2">
                           <ion-button [disabled]="commentFormGroup.invalid" (click)="eval()">

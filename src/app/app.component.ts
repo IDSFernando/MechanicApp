@@ -32,6 +32,29 @@ export class AppComponent {
     userImage: ''
   }
 
+  icons:any = [
+    {
+      icon: 'water',
+      keyword: 'aceite'
+    },
+    {
+      icon: 'archive',
+      keyword: 'motor'
+    },
+    {
+      icon: 'car',
+      keyword: 'suspensión'
+    },
+    {
+      icon: 'hand',
+      keyword: 'frenos'
+    },
+    {
+      icon: 'snow',
+      keyword: 'sistema de enfriamiento'
+    },
+  ]
+
   howManyTimesDidIAskedYourCredentials:number = 0
 
   public appPages = [
@@ -86,18 +109,25 @@ export class AppComponent {
     const tok = await localStorage.getItem('auth_token')
     this.api.getAllServices(tok)
     .subscribe(
-      (servicios) => {
-        this.showAlert(this.objToString(servicios))
-        // servicios.forEach(s => {
-        //   this.appPages.push(
-        //     {
-        //       title: 'Alineación y balanceo',
-        //       url: '/list',
-        //       icon: 'repeat',
-        //       color: 'dark'
-        //     }
-        //   )
-        // })
+      (data) => {
+        // active: true
+        // created_at: null
+        // description: "Cambio de aceite de motor."
+        // id: 1
+        // name: "Aceite"
+        // notes: null
+        // updated_at: null
+        data.services.forEach(async s => {
+          const _icon = await this.getIconFromKeyword(s.name)
+          this.appPages.push(
+            {
+              title: s.name,
+              url: '/home',
+              icon: _icon,
+              color: 'dark'
+            }
+          )
+        })
       },
       (error) => {
         this.showAlert(this.objToString(error))
@@ -175,5 +205,20 @@ export class AppComponent {
         }
     }
     return str;
+  }
+
+
+
+  async getIconFromKeyword(keyword)
+  {
+    let result = ''
+    const busco = ''+keyword.toLowerCase()
+    await this.icons.forEach(element => {
+      if(element.keyword == busco)
+      {
+        result = element.icon
+      }
+    })
+    return result
   }
 }

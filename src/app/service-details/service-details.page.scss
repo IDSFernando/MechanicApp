@@ -85,3 +85,24 @@ h1, h4
   width:100%;
   bottom:0;
 }
+
+
+
+.marker {
+  background-image: url('https://cdn.pixabay.com/photo/2014/04/02/10/45/location-304467_960_720.png');
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}

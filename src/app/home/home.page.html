@@ -12,7 +12,7 @@
 <ion-content fullscreen="true">
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
     <ion-refresher-content
-      pullingIcon="arrow-dropdown"
+      pullingIcon="arrow-round-down"
       pullingText="Desliza para buscar talleres cerca de tí"
       refreshingSpinner="circles"
       refreshingText="Buscando...">
@@ -52,15 +52,15 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-slides card-slides slidesPerView="1.18" spaceBetween="5" pager="true" style="padding-bottom: 2em !important" *ngIf="cmasCercanos.length > 0">
+  <ion-slides card-slides slidesPerView="1.18" zoom="false" spaceBetween="5" pager="true" style="padding-bottom: 2em !important" *ngIf="cmasCercanos.length > 0">
     <ion-slide *ngFor="let taller of cmasCercanos">
       <ion-card (click)="openServiceDetails(taller.id)">
-        <img src="https://blog.reparacion-vehiculos.es/hs-fs/hubfs/Imágenes_Post/Julio%202018/errores%20cambio-aceite.jpg?width=800&name=errores%20cambio-aceite.jpg" alt="">
+        <img [src]="taller.cmv_image_url" style="max-height: 250px !important; height: 250px !important" alt="Mechanicapp">
         <ion-card-header>
         </ion-card-header>
         <ion-card-content>
-          <ion-card-subtitle color="warning">A 500 metros de tí</ion-card-subtitle>
-          <ion-card-title color="warning">Nombre del taller</ion-card-title>
+          <ion-card-subtitle color="warning">A {{ taller.distance }} metros de tí</ion-card-subtitle>
+          <ion-card-title color="warning">{{ taller.name }}</ion-card-title>
         </ion-card-content>
       </ion-card>
     </ion-slide>
