@@ -164,7 +164,13 @@ export class HomePage {
         )
       },
       (error) => {
-        this.showAlert('No pudimos acceder a tu ubicación, verifica lo siguiente:\n1. ¿Está encendido el GPS de tu dispositivo?\n2. ¿Nos otorgaste acceso a usar tu GPS?')
+        this.showAlert(`
+          No pudimos acceder a tu ubicación, verifica lo siguiente:
+          <ol>
+            <li>¿Está encendido el GPS de tu dispositivo?</li>
+            <li>¿Nos otorgaste acceso a usar tu GPS?</li>
+          </ol>
+          `)
         loading.dismiss()
       }
 

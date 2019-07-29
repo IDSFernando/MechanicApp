@@ -104,13 +104,24 @@ export class LoginPage implements OnInit {
       .subscribe(
         response => 
         {
-          console.log(response)
-          loader.dismiss()
-          localStorage.setItem('auth_token', response['data'].token)
-          console.log(response['data'].token)
-          this.events.publish('user:logged', null, null)
-          this.navCtrl.navigateRoot(['home'])
-          // this.router.navigateByUrl('home')
+          if(response['status'] == "error")
+          {
+            loader.dismiss()
+            this.showAlert(`
+              No pudimos encontrar esta cuenta.
+              <ol>
+                <li>Verifica tus credenciales.</li>
+                <li>¿Solicitaste la eliminación de tu cuenta?</li>
+              </ol>
+            `)
+          }
+          else
+          {
+            loader.dismiss()
+            localStorage.setItem('auth_token', response['data'].token)
+            this.events.publish('user:logged', null, null)
+            this.navCtrl.navigateRoot(['home'])
+          }
         },
         error => {
           loader.dismiss()
@@ -190,19 +201,8 @@ export class LoginPage implements OnInit {
       })
       .subscribe(
         response => {
+          this.showAlert(this.objToString(response))
           console.log(response['token'])
-          /*
-
-          email: "test@test.com"
-
-          message: "Usuario registrado"
-
-          status: "success"
-
-          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTU2MzcyNjQ3NH0.xdRNDQL1UaEjFl_JTyvuQppOYRG9DXXPJKeTLGUiolU"
-
-          user_id: 2
-          */
           loader.dismiss()
           localStorage.setItem('auth_token', response['token'])
           this.events.publish('user:logged', null, null)
@@ -258,6 +258,21 @@ export class LoginPage implements OnInit {
       translucent: true
     });
     return await alert.present();
+  }
+
+  /**
+   * Mostrar las propiedades de un objeto
+   * @param  obj Objeto
+   * @return String [Estructura del objeto]
+   */
+  objToString (obj) {
+    var str = '';
+    for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            str += p + '::' + obj[p] + '\n';
+        }
+    }
+    return str;
   }
 
 }

@@ -67,6 +67,19 @@ export class RESTService {
     return this.api.get(`${this.db}/users/current?token=${credentials.token}` ,this.httpOptions)
   }
 
+
+  /**
+   * Borrar la cuenta del cliente
+   *
+   * @param   {String}              token  Token del cliente
+   *
+   * @return  {Observable<any>}        [return description]
+   */
+  deleteMyAccount(token:any): Observable<any>
+  {
+    return this.api.delete(`${this.db}/users/current?token=${token}` ,this.httpOptions)
+  }
+
   /**
    * Obtener los CMA's cercanos según la distancia, latitud y longitud
    *
