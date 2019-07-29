@@ -18,10 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx'
 export class HomePage {
   
   palabraBuscada: any
-
-  // Ubicación del cliente
-  latitude:any = null
-  longitude:any = null
+  cmasCercanos:any = []
 
   constructor(
     private openPageAsModal : ModalController,
@@ -110,13 +107,20 @@ export class HomePage {
     // Cambiar por obtener los cma's cercanos
     this.gps.getCurrentPosition().then(
       (pos) => {
-        this.latitude = pos.coords.latitude
-        this.longitude = pos.coords.longitude
-        loading.dismiss()        
-        this.showAlert(`
-          Latitud: ${this.latitude}\n
-          Longitud: ${this.longitude}
-        `)
+        loading.dismiss()
+        this.api.getNearCMAS({
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+          token: localStorage.getItem('auth_token')
+        })
+        .subscribe(
+          (talleres) => {
+            this.showAlert(this.objToString(talleres))
+          },
+          (error) => {
+            this.showAlert(this.objToString(error.error))
+          }
+        )
       },
       (error) => {
         this.showAlert('No pudimos acceder a tu ubicación, verifica lo siguiente:\n1. ¿Está encendido el GPS de tu dispositivo?\n2. ¿Nos otorgaste acceso a usar tu GPS?')
@@ -161,5 +165,28 @@ export class HomePage {
       translucent: true
     });
     return await alert.present();
+  }
+
+  /**
+   * Mostrar las propiedades de un objeto
+   * @param  obj Objeto
+   * @return String [Estructura del objeto]
+   */
+  objToString (obj) {
+    var str = '';
+    for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            str += p + '::' + obj[p] + '\n';
+        }
+    }
+    return str;
+  }
+
+
+
+  refresh(e)
+  {
+   this.load()
+    e.target.complete()
   }
 }

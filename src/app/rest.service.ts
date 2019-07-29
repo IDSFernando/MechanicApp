@@ -66,4 +66,31 @@ export class RESTService {
   {
     return this.api.get(`${this.db}/users/current?token=${credentials.token}` ,this.httpOptions)
   }
+
+  /**
+   * Obtener los CMA's cercanos según la distancia, latitud y longitud
+   *
+   * @param   {any}  data  {latitude: '', longitude: '', token: '', distance: ''}
+   *
+   */
+  getNearCMAS(data:any): Observable<any>
+  {
+    return this.api.post(`${this.db}/cmas/nearby/1000`,
+    {
+      token: data.token,
+      latitude: data.latitude,
+      longitude: data.longitude
+    },
+    this.httpOptions)
+  }
+
+  /**
+   * Obtener todo el catálogo de servicios
+   *
+   * @param   {any}              token  Token del cliente
+   */
+  getAllServices(token:any): Observable<any>
+  {
+    return this.api.get(`${this.db}/services?token=${token}`)
+  }
 }

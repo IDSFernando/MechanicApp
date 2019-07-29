@@ -40,42 +40,6 @@ export class AppComponent {
       url: '/home',
       icon: 'home',
       color: 'danger'
-    },
-    {
-      title: 'Alineación y balanceo',
-      url: '/list',
-      icon: 'repeat',
-      color: 'dark'
-    },
-    {
-      title: 'Inyección electrónica y mecánica',
-      url: '/list',
-      icon: 'car',
-      color: 'dark'
-    },
-    {
-      title: 'Aire acondicionado',
-      url: '/list',
-      icon: 'snow',
-      color: 'dark'
-    },
-    {
-      title: 'Frenos',
-      url: '/list',
-      icon: 'hand',
-      color: 'dark'
-    },
-    {
-      title: 'Cajas de velocidad',
-      url: '/list',
-      icon: 'speedometer',
-      color: 'dark'
-    },
-    {
-      title: 'Pintura',
-      url: '/list',
-      icon: 'brush',
-      color: 'dark'
     }
   ];
 
@@ -94,6 +58,7 @@ export class AppComponent {
     this.initializeApp();
     events.subscribe('user:logged', (a,b) => {
       this.getUserData()
+      this.getAllServices()
     })
   }
 
@@ -102,8 +67,42 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
-      this.getUserData()
+      const tok = localStorage.getItem('auth_token')
+      if(tok)
+      {
+        this.events.publish('user:logged', null, null)
+        this.navCtrl.navigateRoot(['home'])
+      }
     });
+  }
+
+  /**
+   * Obtener todos los servicios
+   *
+   * @return  {[type]}  [return description]
+   */
+  async getAllServices()
+  {
+    const tok = await localStorage.getItem('auth_token')
+    this.api.getAllServices(tok)
+    .subscribe(
+      (servicios) => {
+        this.showAlert(this.objToString(servicios))
+        // servicios.forEach(s => {
+        //   this.appPages.push(
+        //     {
+        //       title: 'Alineación y balanceo',
+        //       url: '/list',
+        //       icon: 'repeat',
+        //       color: 'dark'
+        //     }
+        //   )
+        // })
+      },
+      (error) => {
+        this.showAlert(this.objToString(error))
+      }
+    )
   }
 
   async getUserData()
@@ -161,5 +160,20 @@ export class AppComponent {
       translucent: true
     });
     return await alert.present();
+  }
+
+  /**
+   * Mostrar las propiedades de un objeto
+   * @param  obj Objeto
+   * @return String [Estructura del objeto]
+   */
+  objToString (obj) {
+    var str = '';
+    for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            str += p + '::' + obj[p] + '\n';
+        }
+    }
+    return str;
   }
 }
