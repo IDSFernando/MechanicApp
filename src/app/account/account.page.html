@@ -12,7 +12,14 @@
   <h1 style="font-weight: bold; font-size: 1.35em">
     Información básica
   </h1>
-  
+  <br>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" style="padding: 0; text-align: center">
+        <ion-icon name="contact" color="warning" style="font-size: 5em; padding-top: 0.15em; padding-left: 0.15em; text-align: center !important"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <form [formGroup]='updateFormGroup'>
     <ion-item-group>
       <ion-item>
@@ -35,23 +42,23 @@
       </ion-item>
     </ion-item-group>
     <br>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6">
-          <ion-button [disabled]="isEditing" color="primary" (click)="edit()">
-            <ion-ripple-effect></ion-ripple-effect>
-            Editar mis datos
-          </ion-button>
-        </ion-col>
-        <ion-col size="6">
-          <ion-button (click)="updateMyData()" [disabled]="!isEditing" color="primary" [disabled]="updateFormGroup.invalid">
-            <ion-ripple-effect></ion-ripple-effect>
-            Actualizar mis datos
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
   </form>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button [disabled]="isEditing" color="primary" (click)="edit()">
+          <ion-ripple-effect></ion-ripple-effect>
+          Editar mis datos
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="updateMyData()" [disabled]="!isEditing" color="primary" [disabled]="updateFormGroup.invalid">
+          <ion-ripple-effect></ion-ripple-effect>
+          Actualizar mis datos
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <form [formGroup]='updatePasswordFormGroup'>
     <br>
@@ -89,7 +96,7 @@
       <h1 style="font-weight: bold; font-size: 1.35em">Rango de búsqueda</h1>
       <br>
       <ion-item>
-        <ion-range [(ngModel)]="rangoBusqueda" min="500" max="5000" step="100" pin="true" snaps="true" ticks="true" color="warning" debounce="1000" (ionChange)="updateDistance()">
+        <ion-range [(ngModel)]="rangoBusqueda" min="500" max="5000" step="100" pin="true" snaps="true" ticks="true" color="warning" debounce="500" (ionChange)="updateDistance()">
           <ion-label slot="end">{{ rangoBusqueda }} metros</ion-label>
         </ion-range>
       </ion-item>

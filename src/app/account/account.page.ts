@@ -300,6 +300,22 @@ export class AccountPage implements OnInit {
               if(input.password.trim().length > 0)
               {
                 //API y validaciones
+                this.api.changeMyPassword({
+                  password: input.password.trim(),
+                  newpassword: this.updatePasswordFormGroup.get('newpassword').value,
+                  token: localStorage.getItem('auth_token')
+                })
+                .subscribe
+                (
+                  (response) => {
+                    this.updatePasswordFormGroup.get('newpassword').setValue('')
+                    this.showAlert('Contraseña actualizada correctamente')
+                  },
+                  (error) => {
+                    this.showAlert('La contraseña que ingresaste no es la correcta')
+                  }
+                )
+                
               }
               else
               {
