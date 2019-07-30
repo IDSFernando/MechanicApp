@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, Events } from '@ionic/angular';
 import { ServiceDetailsPage } from '../service-details/service-details.page';
 import { MenuController } from '@ionic/angular'
 import { CallNumber } from '@ionic-native/call-number/ngx'
@@ -29,9 +29,16 @@ export class HomePage {
     private api:RESTService,
     private alert: AlertController,
     private gps: Geolocation,
+    private events: Events,
   )
   {
     this.menu.enable(true)
+
+
+    //Cuando cambia el rango de búsqueda
+    events.subscribe('range:change', (a,b) => {
+      this.load(false)
+    })
   }
   ionViewDidEnter()
   {
@@ -43,7 +50,7 @@ export class HomePage {
     }
     else
     {
-      this.load()
+      this.load(true)
     }
   }
 
@@ -112,16 +119,17 @@ export class HomePage {
   }
 
   //Obtener los datos desde la API
-  async load()
+  async load(showLoading)
   {
+    this.cmasCercanos = []
     const loading = await this.loading.create({
       message: 'Estamos buscando talleres cerca de tí...',
       translucent: true,
       backdropDismiss: false,
       showBackdrop: true
     });
-
-    await loading.present()
+    if(showLoading)
+      await loading.present()
 
     // Cambiar por obtener los cma's cercanos
     this.gps.getCurrentPosition().then(
@@ -130,7 +138,8 @@ export class HomePage {
         this.api.getNearCMAS({
           latitude: pos.coords.latitude,
           longitude: pos.coords.longitude,
-          token: localStorage.getItem('auth_token')
+          token: localStorage.getItem('auth_token'),
+          distance: localStorage.getItem('max_distance')
         })
         .subscribe(
           (data) => {
@@ -157,9 +166,13 @@ export class HomePage {
             data.cmas.forEach(taller => {
               this.cmasCercanos.push(taller)
             });
+            if(showLoading)
+              loading.dismiss()
           },
           (error) => {
             this.showAlert(this.objToString(error.error))
+            if(showLoading)
+              loading.dismiss()
           }
         )
       },
@@ -188,14 +201,21 @@ export class HomePage {
    */
   async buscar(e)
   {
-    this.palabraBuscada = e.target.value
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "busco": this.palabraBuscada
+    if(e.target.value.trim().length > 0)
+    {
+      this.palabraBuscada = e.target.value
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          "busco": this.palabraBuscada
+        }
       }
+      this.palabraBuscada = null
+      await this.router.navigate(["busqueda"], navigationExtras)
     }
-    this.palabraBuscada = null
-    await this.router.navigate(["busqueda"], navigationExtras)
+    else
+    {
+      this.showAlert('Ingresa una palabra válida')
+    }
   }
 
   /**
@@ -236,7 +256,7 @@ export class HomePage {
   refresh(e)
   {
     this.cmasCercanos = []
-    this.load()
+    this.load(true)
     e.target.complete()
   }
 }

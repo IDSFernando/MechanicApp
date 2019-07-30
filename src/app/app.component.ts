@@ -106,6 +106,16 @@ export class AppComponent {
    */
   async getAllServices()
   {
+
+    //Limpiar antes de hacer un push
+    this.appPages = [
+      {
+        title: 'Inicio',
+        url: '/home',
+        icon: 'home',
+        color: 'danger'
+      }
+    ]
     const tok = await localStorage.getItem('auth_token')
     this.api.getAllServices(tok)
     .subscribe(

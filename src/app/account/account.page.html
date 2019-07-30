@@ -12,18 +12,6 @@
   <h1 style="font-weight: bold; font-size: 1.35em">
     Información básica
   </h1>
-
-  <!-- 
-
-    email: string,
-  lastname: string,
-  id: number,
-  name: string,
-  username: string,
-  userImage: string
-
-
-  -->
   
   <form [formGroup]='updateFormGroup'>
     <ion-item-group>
@@ -55,6 +43,19 @@
         Actualizar mis datos
       </ion-button>
     </ion-item-group>
+  </form>
+
+
+    <ion-item-group>
+      <h1 style="font-weight: bold; font-size: 1.35em">Rango de búsqueda</h1>
+      <br>
+      <ion-item>
+        <ion-range [(ngModel)]="rangoBusqueda" min="500" max="20000" step="100" pin="true" snaps="true" ticks="true" color="warning" debounce="1000" (ionChange)="updateDistance()">
+          <ion-label slot="end">{{ rangoBusqueda }} metros</ion-label>
+        </ion-range>
+      </ion-item>
+    </ion-item-group>
+
     
     <br>
     <ion-item-group>
@@ -77,5 +78,4 @@
         </ion-row>
       </ion-grid>
     </ion-item-group>
-  </form>
 </ion-content>

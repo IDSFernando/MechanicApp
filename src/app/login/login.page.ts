@@ -11,7 +11,9 @@ const urlLogin = "assets/video/background.mp4"
 const urlRegister = "assets/video/background_register.mp4"
 
 import { RESTService } from '../rest.service'
-import { Events } from '@ionic/angular';
+import { Events } from '@ionic/angular'
+
+import { Keyboard } from '@ionic-native/keyboard/ngx'
 
 
 @Component({
@@ -36,13 +38,17 @@ export class LoginPage implements OnInit {
     private loading: LoadingController,
     private api: RESTService,
     private navCtrl: NavController,
-    private events: Events
+    private events: Events,
+    private keyboard:Keyboard,
   )
   {
     //this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
     this.menu.enable(false)
     this.sbar.hide()
     this.videoURL = urlLogin
+    setTimeout(() => {
+      this.keyboard.hideFormAccessoryBar(false)
+    }, 1000);
   }
 
   ngOnInit() {

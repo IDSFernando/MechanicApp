@@ -18,9 +18,12 @@ interface userData {
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
+  
   currentModal: ModalController
   userdata: userData
   updateFormGroup:FormGroup
+  rangoBusqueda:number = 0
+
   constructor(
     private nav: NavParams,
     private router: Router,
@@ -40,6 +43,17 @@ export class AccountPage implements OnInit {
       'name': [this.userdata.name, Validators.required],
       'lastname': [this.userdata.lastname, Validators.required],
     })
+
+    const rangeLS = localStorage.getItem('max_distance')
+    if(!rangeLS)
+    {
+      this.rangoBusqueda = 500//mts
+      localStorage.setItem('max_distance', '500')
+    }
+    else
+    {
+      this.rangoBusqueda = parseInt(rangeLS)
+    }
   }
 
   ngOnInit() {
@@ -52,6 +66,7 @@ export class AccountPage implements OnInit {
 
   cerrarSesion()
   {
+    localStorage.setItem('max_distance', '500')
     localStorage.removeItem('auth_token')
     this.menu.close()
     this.menu.enable(false)
@@ -223,6 +238,13 @@ export class AccountPage implements OnInit {
         }
     }
     return str;
+  }
+
+
+  updateDistance()
+  {
+    localStorage.setItem('max_distance', `${this.rangoBusqueda}`)
+    this.events.publish('range:change', null, null)
   }
 
 }

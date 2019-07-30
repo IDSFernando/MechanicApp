@@ -99,7 +99,7 @@ export class RESTService {
    */
   getNearCMAS(data:any): Observable<any>
   {
-    return this.api.post(`${this.db}/cmas/nearby/1000`,
+    return this.api.post(`${this.db}/cmas/nearby/${data.distance}`,
     {
       token: data.token,
       latitude: data.latitude,
@@ -119,9 +119,26 @@ export class RESTService {
   }
 
 
-
+  /**
+   * Obtener la información de un CMA
+   *
+   * @param   {JSON}              data
+   */
   getCmaInfo(data:any): Observable<any>
   {
     return this.api.get(`${this.db}/cmas/${data.id}?token=${data.token}`, this.httpOptions)
+  }
+
+
+
+  searchServicesOrWorkshops(data:any): Observable<any>
+  {
+    return this.api.post(`${this.db}/cmas/search/${data.search}`,
+      {
+        latitude: data.latitude,
+        longitude: data.longitude,
+        token: data.token
+      },
+      this.httpOptions)
   }
 }

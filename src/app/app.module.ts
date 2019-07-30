@@ -22,6 +22,7 @@ import { HttpModule } from '@angular/http'
 import { FiltrosPageModule } from './filtros/filtros.module'
 
 import { Geolocation } from '@ionic-native/geolocation/ngx'
+import { Keyboard } from '@ionic-native/keyboard/ngx'
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +48,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx'
     ScreenOrientation,
     CallNumber,
     Geolocation,
+    Keyboard
   ],
   bootstrap: [AppComponent]
 })

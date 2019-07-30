@@ -38,4 +38,32 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-grid *ngIf="coincidencias.length == 0 && hasDone">
+    <ion-col size="12">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle></ion-card-subtitle>
+          <ion-card-title style="text-align:center !important">🌎🔍🤔</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p style="text-align: center">No encontramos nada relacionado con <strong>{{ busqueda }}</strong></p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-col size="12" *ngFor="let taller of coincidencias">
+      <ion-card (click)="showMeThisWorkshop(taller.id)">
+        <img [src]="taller.cmv_image_url" style="max-height: 250px !important; height: 250px !important" alt="Mechanicapp">
+        <ion-card-header>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-card-subtitle color="warning">A {{ taller.distance }} metros de tí</ion-card-subtitle>
+          <ion-card-title color="warning">{{ taller.name }}</ion-card-title>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-grid>
 </ion-content>
