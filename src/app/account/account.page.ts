@@ -22,7 +22,10 @@ export class AccountPage implements OnInit {
   currentModal: ModalController
   userdata: userData
   updateFormGroup:FormGroup
+  updatePasswordFormGroup:FormGroup
   rangoBusqueda:number = 0
+
+  isEditing: boolean = false
 
   constructor(
     private nav: NavParams,
@@ -39,9 +42,24 @@ export class AccountPage implements OnInit {
     this.userdata = this.nav.get('userdata')
 
     this.updateFormGroup = this.formBuilder.group({
-      'username': [this.userdata.username, Validators.required],
-      'name': [this.userdata.name, Validators.required],
-      'lastname': [this.userdata.lastname, Validators.required],
+      'username': [
+        this.userdata.username,
+        Validators.required,
+      ],
+      'name': [
+        this.userdata.name,
+        Validators.required
+      ],
+      'lastname': [
+        this.userdata.lastname,
+        Validators.required
+      ],
+      
+    })
+
+    this.updatePasswordFormGroup = this.formBuilder.group({
+      'password': ['thisisnotyourpassword', Validators.required],
+      'newpassword': ['', [Validators.required, Validators.minLength(8)]],
     })
 
     const rangeLS = localStorage.getItem('max_distance')
@@ -76,6 +94,7 @@ export class AccountPage implements OnInit {
 
   async updateMyData()
   {
+    this.isEditing = false
     const passwordPrompt = await this.alert.create({
       header: 'Para actualizar tus datos necesitas ingresar tu contraseña',
       inputs: [
@@ -245,6 +264,58 @@ export class AccountPage implements OnInit {
   {
     localStorage.setItem('max_distance', `${this.rangoBusqueda}`)
     this.events.publish('range:change', null, null)
+  }
+
+  edit()
+  {
+    this.isEditing = true
+  }
+
+
+  async changePassword()
+  {
+    const np = this.updatePasswordFormGroup.get('newpassword').value.trim()
+    if(np.length > 0)
+    {
+      const passwordPrompt = await this.alert.create({
+        header: 'Para proceder necesitas ingresar tu contraseña actual',
+        inputs: [
+          {
+            name: 'password',
+            type: 'password',
+            placeholder: 'Ingresa tu contraseña actual',
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+              //Cancelado
+            }
+          },
+          {
+            text: 'Cambiar mi contraseña',
+            handler: (input) => {
+              if(input.password.trim().length > 0)
+              {
+                //API y validaciones
+              }
+              else
+              {
+                this.showAlert('El campo de contraseña es necesario')
+              }
+            }
+          }
+        ]
+      })
+      await passwordPrompt.present()
+    }
+    else
+    {
+      this.showAlert('La contraseña nueva no es válida')
+    }
+
   }
 
 }

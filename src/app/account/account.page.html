@@ -16,41 +16,80 @@
   <form [formGroup]='updateFormGroup'>
     <ion-item-group>
       <ion-item>
-        <ion-label>
-          Nombre:
-        </ion-label>
-        <ion-input formControlName="name" outlineInput></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>
+        <ion-label position="floating">
           Nombre de usuario:
         </ion-label>
-        <ion-input formControlName="username" outlineInput></ion-input>
+        <ion-input [disabled]="!isEditing" formControlName="username" outlineInput></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>
+        <ion-label position="floating">
+          Nombre:
+        </ion-label>
+        <ion-input [disabled]="!isEditing" formControlName="name" outlineInput></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">
           Apellidos:
         </ion-label>
-        <ion-input formControlName="lastname" outlineInput></ion-input>
+        <ion-input [disabled]="!isEditing" formControlName="lastname" outlineInput></ion-input>
       </ion-item>
     </ion-item-group>
     <br>
-    <ion-item-group>
-      <h1 style="font-weight: bold; font-size: 1.35em">Seguridad</h1>
-      <br>
-      <ion-button (click)="updateMyData()" color="warning" fill="outline" [disabled]="updateFormGroup.invalid">
-        <ion-ripple-effect></ion-ripple-effect>
-        Actualizar mis datos
-      </ion-button>
-    </ion-item-group>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button [disabled]="isEditing" color="primary" (click)="edit()">
+            <ion-ripple-effect></ion-ripple-effect>
+            Editar mis datos
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button (click)="updateMyData()" [disabled]="!isEditing" color="primary" [disabled]="updateFormGroup.invalid">
+            <ion-ripple-effect></ion-ripple-effect>
+            Actualizar mis datos
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 
+  <form [formGroup]='updatePasswordFormGroup'>
+    <br>
+    <h1 style="font-weight: bold; font-size: 1.35em">
+      Seguridad
+    </h1>
+    <br>
+    <ion-item>
+      <ion-label position="floating">
+        Contraseña actual:
+      </ion-label>
+      <ion-input type="password" inputmode="password" disabled formControlName="password" outlineInput></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Nueva contraseña:
+      </ion-label>
+      <ion-input type="password" inputmode="password" formControlName="newpassword" outlineInput></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button [disabled]="updatePasswordFormGroup.invalid" color="primary" (click)="changePassword()">
+            <ion-ripple-effect></ion-ripple-effect>
+            Cambiar mi contraseña
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  
+  <br><br>
 
     <ion-item-group>
       <h1 style="font-weight: bold; font-size: 1.35em">Rango de búsqueda</h1>
       <br>
       <ion-item>
-        <ion-range [(ngModel)]="rangoBusqueda" min="500" max="20000" step="100" pin="true" snaps="true" ticks="true" color="warning" debounce="1000" (ionChange)="updateDistance()">
+        <ion-range [(ngModel)]="rangoBusqueda" min="500" max="5000" step="100" pin="true" snaps="true" ticks="true" color="warning" debounce="1000" (ionChange)="updateDistance()">
           <ion-label slot="end">{{ rangoBusqueda }} metros</ion-label>
         </ion-range>
       </ion-item>
@@ -64,15 +103,17 @@
       <ion-grid>
         <ion-row>
           <ion-col size="6">
-            <ion-button color="primary" fill="outline" (click)="cerrarSesion()">
+            <ion-button color="primary" (click)="cerrarSesion()">
               <ion-ripple-effect></ion-ripple-effect>
-              Cerrar mi sesión
+              <strong>Cerrar mi sesión</strong>
             </ion-button>
           </ion-col>
           <ion-col size="6">
-            <ion-button color="danger" fill="outline" (click)="deleteAccount()">
+            <ion-button color="danger" (click)="deleteAccount()">
               <ion-ripple-effect></ion-ripple-effect>
-              Eliminar mi cuenta
+              <strong>
+                Eliminar mi cuenta
+              </strong>
             </ion-button>
           </ion-col>
         </ion-row>
