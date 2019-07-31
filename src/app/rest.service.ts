@@ -91,6 +91,21 @@ export class RESTService {
     return this.api.delete(`${this.db}/users/current?token=${token}` ,this.httpOptions)
   }
 
+
+  /**
+   * Cambiar la contraseña del cliente
+   *
+   * @param   {JSON}  data  datos [password, newpassword, token]
+   */
+  changeMyPassword(data): Observable<any>
+  {
+    return this.api.put(`${this.db}/users/current/updatePassword`,{
+      password: data.password,
+      new_password: data.newpassword,
+      token: data.token
+    },this.httpOptions)
+  }
+
   /**
    * Obtener los CMA's cercanos según la distancia, latitud y longitud
    *

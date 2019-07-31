@@ -62,7 +62,7 @@ export class AppComponent {
       title: 'Inicio',
       url: '/home',
       icon: 'home',
-      color: 'danger'
+      color: 'warning'
     }
   ];
 
@@ -113,7 +113,7 @@ export class AppComponent {
         title: 'Inicio',
         url: '/home',
         icon: 'home',
-        color: 'danger'
+        color: 'warning'
       }
     ]
     const tok = await localStorage.getItem('auth_token')
