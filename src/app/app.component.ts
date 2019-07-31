@@ -96,6 +96,12 @@ export class AppComponent {
         this.events.publish('user:logged', null, null)
         this.navCtrl.navigateRoot(['home'])
       }
+
+      this.platform.backButton.subscribe(async () => {
+        if (this.router.isActive('/home', true) && this.router.url === '/home') {
+          navigator['app'].exitApp();
+        }
+      });
     });
   }
 

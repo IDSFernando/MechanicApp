@@ -207,7 +207,6 @@ export class LoginPage implements OnInit {
       })
       .subscribe(
         response => {
-          this.showAlert(this.objToString(response))
           console.log(response['token'])
           loader.dismiss()
           localStorage.setItem('auth_token', response['token'])

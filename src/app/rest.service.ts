@@ -156,4 +156,26 @@ export class RESTService {
       },
       this.httpOptions)
   }
+
+
+
+  getCurrentEmergencyNumber(data:any): Observable<any>
+  {
+    return this.api.get(`${this.db}/users/current/emergencyNumbers?token=${data.token}`, this.httpOptions)
+  }
+
+  setEmergencyNumber(data:any): Observable<any>
+  {
+    return this.api.post(`${this.db}/users/current/emergencyNumbers`, {
+      token: data.token,
+      emergency_number: data.number
+    }, this.httpOptions)
+  }
+
+  enviarComentario(data:any): Observable<any>
+  {
+    return this.api.post(`${this.db}/cmas/${data.id}/reviews`, {
+      token: data.token
+    }, this.httpOptions)
+  }
 }

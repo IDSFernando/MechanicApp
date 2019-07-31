@@ -14,6 +14,7 @@ import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js'
 import { LoadingController } from '@ionic/angular'
 import { resolve } from 'q';
 import { Geolocation } from '@ionic-native/geolocation/ngx'
+import { RESTService } from '../rest.service';
 
 @Component({
   selector: 'app-service-details',
@@ -25,7 +26,6 @@ export class ServiceDetailsPage implements OnInit {
   currentModal: ModalController
   currentSegment: string = "map"
   phoneNumbers: string[] = []
-  comentarios: any = []
   commentFormGroup: FormGroup
   currentCMA: any = null
   starsCmaRate: any = []
@@ -42,16 +42,15 @@ export class ServiceDetailsPage implements OnInit {
     private loading: LoadingController,
     private alert: AlertController,
     private gps: Geolocation,
+    private api: RESTService,
   ) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiaWRzZmVybmFuZG8iLCJhIjoiY2p4NHhzZjQ3MDJyNzQzdXJxYW01cGE4NSJ9.703KpAMi7SCviDt79F_Y1g'
     this.currentModal = this.nav.get('modal')
-    this.phoneNumbers = [
-      '9611319085',
-      '9612387823'
-    ]
+    this.phoneNumbers = []
     this.commentFormGroup = this.formBuilder.group({
       'rate': ['', Validators.required],
-      'comment': ['', Validators.required]
+      'comment': ['', Validators.required],
+      'title': ['', Validators.required]
     })
   }
 
@@ -124,6 +123,9 @@ export class ServiceDetailsPage implements OnInit {
     // await loading.present()
     try {
       this.currentCMA = await this.nav.get('cma')
+      this.currentCMA.cmv_phones.forEach(numero => {
+        this.phoneNumbers.push(numero)
+      });
       const gradeAverage = this.currentCMA.grade_average.split('.')
       let enteros = gradeAverage[0]
       let decimalesStr = '0.' + gradeAverage[0]
@@ -233,8 +235,12 @@ export class ServiceDetailsPage implements OnInit {
       })
       await actionSheet.present();
     }
-    else {
+    else if(this.phoneNumbers.length == 1)
+    {
       this.tryCall(this.phoneNumbers[0])
+    }
+    else {
+      this.showAlert(`${this.currentCMA.name} no tiene números registrados`)
     }
 
   }
@@ -259,14 +265,25 @@ export class ServiceDetailsPage implements OnInit {
 
 
   eval() {
-    this.comentarios.unshift({
-      autor: 'Luis Fernando',
-      mensaje: this.commentFormGroup.get('comment').value,
-      valoracion: this.commentFormGroup.get('rate').value
-    })
-    return resolve(this.comentarios).then(() => {
-      this.commentFormGroup.reset()
-    })
+    this.api.enviarComentario({
+      token: localStorage.getItem('auth_token'),
+      id: this.currentCMA.id
+    }).subscribe(
+      (response) => {
+        this.showAlert(this.objToString(response))
+      },
+      (error) => {
+        this.showAlert(this.objToString(error))
+      }
+    )
+    // this.comentarios.unshift({
+    //   autor: 'Luis Fernando',
+    //   mensaje: this.commentFormGroup.get('comment').value,
+    //   valoracion: this.commentFormGroup.get('rate').value
+    // })
+    // return resolve(this.comentarios).then(() => {
+    //   this.commentFormGroup.reset()
+    // })
   }
 
 
