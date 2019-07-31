@@ -19,6 +19,8 @@ export class HomePage {
   
   palabraBuscada: any
   cmasCercanos:any = []
+  isLoaded:boolean = false
+  numero_emergencia:any = null
 
   constructor(
     private openPageAsModal : ModalController,
@@ -43,6 +45,8 @@ export class HomePage {
   ionViewDidEnter()
   {
     this.menu.enable(true)
+    this.isLoaded = false
+    this.menu.enable(true)
     const auth_token = localStorage.getItem('auth_token')
     if(!auth_token)
     {
@@ -63,13 +67,20 @@ export class HomePage {
    */
   async openServiceDetails(id)
   {
-    let cma = null
+    const loading = await this.loading.create({
+      message: 'Cargando datos del taller...',
+      translucent: true,
+      backdropDismiss: false,
+      showBackdrop: true
+    })
+    loading.present()
     await this.api.getCmaInfo({
       id: id,
       token: localStorage.getItem('auth_token')
     })
     .subscribe(
       async (info) => {
+        loading.dismiss()
         info.cma.forEach(async element => {
           const modal = await this.openPageAsModal.create({
             component: ServiceDetailsPage,
@@ -88,6 +99,7 @@ export class HomePage {
         });
       },
       (error) => {
+        loading.dismiss()
         this.showAlert(this.objToString(error))
       }
     )
@@ -108,8 +120,7 @@ export class HomePage {
   //Llamar a un contato de emergencia
   async callEmergencyContact()
   {
-    const numero = localStorage.getItem('emergency_number')
-    if(!numero)
+    if(!this.numero_emergencia)
     {
       const numberPrompt = await this.alert.create({
         header: 'Vamos a registrar un número de emergencias:',
@@ -131,8 +142,26 @@ export class HomePage {
           {
             text: 'Listo',
             handler: (input) => {
-              //API
-              
+              if(input.numero.length == 10)
+              {
+                //API
+                this.api.setEmergencyNumber({
+                  token: localStorage.getItem('auth_token'),
+                  number: input.numero
+                })
+                .subscribe(
+                  (data) => {
+                    this.numero_emergencia = data.user_emergency_number
+                  },
+                  (error) => {
+                    this.showAlert(this.objToString(error))
+                  }
+                )
+              }
+              else
+              {
+                this.showAlert('Introduce un número válido')
+              }
             }
           }
         ]
@@ -141,7 +170,7 @@ export class HomePage {
     }
     else
     {
-      this.llamada.callNumber(numero, true)
+      this.llamada.callNumber(this.numero_emergencia, true)
       .then(
         res => console.log(res)
       )
@@ -164,6 +193,22 @@ export class HomePage {
     if(showLoading)
       await loading.present()
 
+    
+    //Obtener el número de emergencia
+    if(!this.numero_emergencia)
+    {
+      this.api.getCurrentEmergencyNumber({
+        token: localStorage.getItem('auth_token')
+      })
+      .subscribe(
+        (data) => {
+          this.numero_emergencia = data.user_emergency_number
+        },
+        (error) => {
+          this.showAlert(this.objToString(error))
+        }
+      )
+    }
     // Cambiar por obtener los cma's cercanos
     this.gps.getCurrentPosition().then(
       (pos) => {
@@ -176,6 +221,7 @@ export class HomePage {
         })
         .subscribe(
           (data) => {
+            this.isLoaded = true
             // Regresa algo así
             // {
             //   "id": 3,
@@ -203,6 +249,7 @@ export class HomePage {
               loading.dismiss()
           },
           (error) => {
+            this.isLoaded = true
             this.showAlert(this.objToString(error.error))
             if(showLoading)
               loading.dismiss()
@@ -210,6 +257,7 @@ export class HomePage {
         )
       },
       (error) => {
+        this.isLoaded = true
         this.showAlert(`
           No pudimos acceder a tu ubicación, verifica lo siguiente:
           <ol>
@@ -288,6 +336,7 @@ export class HomePage {
 
   refresh(e)
   {
+    this.isLoaded = false
     this.cmasCercanos = []
     this.load(true)
     e.target.complete()

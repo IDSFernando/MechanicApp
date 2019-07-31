@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ModalController, Events, PickerController, AlertController, LoadingController } from '@ionic/angular';
+import { ModalController, Events, PickerController, AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { FiltrosPage } from '../filtros/filtros.page'
 import { PickerOptions } from '@ionic/core';
 import { RESTService } from '../rest.service';
@@ -31,6 +31,7 @@ export class BusquedaPage implements OnInit {
   constructor(
     private param:ActivatedRoute,
     private modalFiltros : ModalController,
+    private menu: MenuController,
     private events: Events,
     private picker: PickerController,
     private alert: AlertController,
@@ -41,6 +42,7 @@ export class BusquedaPage implements OnInit {
     private keyboard:Keyboard,
     )
     {
+      this.menu.enable(false)
       this.param.queryParams.subscribe(params => {
         const busco = params['busco']
         this.busqueda = busco
@@ -297,12 +299,20 @@ export class BusquedaPage implements OnInit {
    */
   async showMeThisWorkshop(id)
   {
+    const loading = await this.loading.create({
+      message: 'Cargando datos del taller...',
+      translucent: true,
+      backdropDismiss: false,
+      showBackdrop: true
+    })
+    loading.present()
     await this.api.getCmaInfo({
       id: id,
       token: localStorage.getItem('auth_token')
     })
     .subscribe(
       async (info) => {
+        loading.dismiss()
         info.cma.forEach(async element => {
           const modal = await this.openPageAsModal.create({
             component: ServiceDetailsPage,
@@ -321,6 +331,7 @@ export class BusquedaPage implements OnInit {
         });
       },
       (error) => {
+        loading.dismiss()
         this.showAlert(this.objToString(error))
       }
     )

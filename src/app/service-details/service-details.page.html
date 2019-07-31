@@ -145,12 +145,18 @@
                   <ion-card-content>
                     <ion-grid fixed>
                       <ion-row>
-                        <ion-col size="10">
+                        <ion-col size="12">
+                          <ion-textarea formControlName="title" style="border-bottom: solid 1px #488aff !important" placeholder="Título"></ion-textarea>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col size="12">
                           <ion-textarea formControlName="comment" style="border-bottom: solid 1px #488aff !important" placeholder="Escribe tu opinión"></ion-textarea>
                         </ion-col>
-                        <ion-col size="2">
-                          <ion-button [disabled]="commentFormGroup.invalid" (click)="eval()">
-                            <ion-icon slot="icon-only" name="send"></ion-icon>
+                        <ion-col size="12">
+                          <ion-button color="tertiary" [disabled]="commentFormGroup.invalid" (click)="eval()" expand="full">
+                            Enviar
+                            <ion-icon slot="end" name="send"></ion-icon>
                           </ion-button>
                         </ion-col>
                       </ion-row>
@@ -160,15 +166,18 @@
               </ion-card>
             </form>
           </ion-col>
-          <ion-col size="12" *ngFor="let comentario of comentarios">
+          <ion-col size="12" *ngFor="let comentario of currentCMA.cmv_reviews">
             <ion-card>
               <ion-card-header>
-                <ion-icon name="star" class="star" *ngFor="let estrella of [].constructor(comentario.valoracion)"></ion-icon>
+                <!-- <ion-icon name="star" class="star" *ngFor="let estrella of [].constructor(comentario.valoracion)"></ion-icon> -->
               </ion-card-header>
               <ion-card-content>
-                {{ comentario.mensaje }}
+                <ion-card-subtitle>Título</ion-card-subtitle>
                 <br>
-                <small>- {{ comentario.autor }}</small>
+                Mensaje
+                {{ comentario }}
+                <br>
+                <small>- Autor</small>
               </ion-card-content>
             </ion-card>
           </ion-col>
