@@ -86,6 +86,7 @@ export class AccountPage implements OnInit {
   {
     localStorage.setItem('max_distance', '500')
     localStorage.removeItem('auth_token')
+    localStorage.removeItem('emergency_number')
     this.menu.close()
     this.menu.enable(false)
     this.navCtrl.navigateRoot([''])

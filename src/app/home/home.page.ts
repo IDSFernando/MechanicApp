@@ -106,16 +106,50 @@ export class HomePage {
   }
 
   //Llamar a un contato de emergencia
-  callEmergencyContact()
+  async callEmergencyContact()
   {
-    const numero = '9611319085'
-    this.llamada.callNumber(numero, true)
-    .then(
-      res => console.log(res)
-    )
-    .catch(
-      err => console.error(err)
-    )
+    const numero = localStorage.getItem('emergency_number')
+    if(!numero)
+    {
+      const passwordPrompt = await this.alert.create({
+        header: 'No has registrado un número de emergencias, agrega uno:',
+        inputs: [
+          {
+            name: 'numero',
+            type: 'tel',
+            placeholder: '961234567',
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+              //Cancelado
+            }
+          },
+          {
+            text: 'Guardar',
+            handler: (input) => {
+              // if(input.numero)
+              localStorage.setItem('emergency_number', input.numero)
+              this.showAlert(`El número ${input.numero} se ha establecido como tu contacto de emergencias.`)
+            }
+          }
+        ]
+      })
+      await passwordPrompt.present()
+    }
+    else
+    {
+      this.llamada.callNumber(numero, true)
+      .then(
+        res => console.log(res)
+      )
+      .catch(
+        err => console.error(err)
+      )
+    }
   }
 
   //Obtener los datos desde la API
@@ -251,12 +285,20 @@ export class HomePage {
     return str;
   }
 
-
-
   refresh(e)
   {
     this.cmasCercanos = []
     this.load(true)
     e.target.complete()
+  }
+
+
+  /**
+   * Actuailzar el número de emergencia del cliente
+   * @param number número a marcar
+   */
+  updateEmergencyNumber(number)
+  {
+    localStorage.setItem('emergency_number', `${number}`)
   }
 }
