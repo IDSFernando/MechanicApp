@@ -80,7 +80,14 @@ export class BusquedaPage implements OnInit {
                 this.hasDone = true
                 this._loading.dismiss()
                 console.log(error)
-                this.showAlert(this.objToString(error.error))
+                this.showAlert(`
+                  Ups, ocurrió algo inesperado
+
+                  <ol>
+                    <li> Verifica tu conexión a internet </li>
+                    <li> Nuestros servidores están en mantenimiento, lamentamos las molestias </li>
+                  </ol>
+                `)
               }
             )
           }

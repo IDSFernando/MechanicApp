@@ -169,15 +169,14 @@
           <ion-col size="12" *ngFor="let comentario of currentCMA.cmv_reviews">
             <ion-card>
               <ion-card-header>
-                <!-- <ion-icon name="star" class="star" *ngFor="let estrella of [].constructor(comentario.valoracion)"></ion-icon> -->
+                <ion-icon name="star" class="star" *ngFor="let estrella of [].constructor(comentario.stars)"></ion-icon>
               </ion-card-header>
               <ion-card-content>
-                <ion-card-subtitle>Título</ion-card-subtitle>
+                <ion-card-subtitle>{{ comentario.title }}</ion-card-subtitle>
                 <br>
-                Mensaje
-                {{ comentario }}
+                {{ comentario.content }}
                 <br>
-                <small>- Autor</small>
+                <small>- {{ ''+comentario.date.substring(0,10) }}</small>
               </ion-card-content>
             </ion-card>
           </ion-col>

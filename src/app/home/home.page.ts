@@ -205,7 +205,6 @@ export class HomePage {
           this.numero_emergencia = data.user_emergency_number
         },
         (error) => {
-          this.showAlert(this.objToString(error))
         }
       )
     }

@@ -267,13 +267,24 @@ export class ServiceDetailsPage implements OnInit {
   eval() {
     this.api.enviarComentario({
       token: localStorage.getItem('auth_token'),
-      id: this.currentCMA.id
+      id: this.currentCMA.id,
+      title: this.commentFormGroup.get('title').value,
+      content: this.commentFormGroup.get('comment').value,
+      stars: this.commentFormGroup.get('rate').value,
     }).subscribe(
       (response) => {
-        this.showAlert(this.objToString(response))
+        this.commentFormGroup.reset()
+        this.showAlert(`Hemos enviado tu comentario, con tu apoyo lograrás que ${this.currentCMA.name} llegue más lejos!`)
       },
       (error) => {
-        this.showAlert(this.objToString(error))
+        this.showAlert(`
+          Algo salió mal:
+
+          <ol>
+            <li> Verifica tu conexión a internet </li>
+            <li> Nuestros servidores están en mantenimiento, lamentamos las molestias </li>
+          </ol>
+        `)
       }
     )
     // this.comentarios.unshift({

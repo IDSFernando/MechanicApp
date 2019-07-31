@@ -175,7 +175,10 @@ export class RESTService {
   enviarComentario(data:any): Observable<any>
   {
     return this.api.post(`${this.db}/cmas/${data.id}/reviews`, {
-      token: data.token
+      token: data.token,
+      title: data.title,
+      content: data.content,
+      stars: data.stars
     }, this.httpOptions)
   }
 }
