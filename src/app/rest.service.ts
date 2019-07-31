@@ -156,4 +156,11 @@ export class RESTService {
       },
       this.httpOptions)
   }
+
+
+
+  getCurrentEmergencyNumber(data:any)
+  {
+
+  }
 }

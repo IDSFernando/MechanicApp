@@ -106,16 +106,49 @@ export class HomePage {
   }
 
   //Llamar a un contato de emergencia
-  callEmergencyContact()
+  async callEmergencyContact()
   {
-    const numero = '9611319085'
-    this.llamada.callNumber(numero, true)
-    .then(
-      res => console.log(res)
-    )
-    .catch(
-      err => console.error(err)
-    )
+    const numero = localStorage.getItem('emergency_number')
+    if(!numero)
+    {
+      const numberPrompt = await this.alert.create({
+        header: 'Vamos a registrar un número de emergencias:',
+        inputs: [
+          {
+            name: 'numero',
+            type: 'tel',
+            placeholder: '9612345678',
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+              //Cancelado
+            }
+          },
+          {
+            text: 'Listo',
+            handler: (input) => {
+              //API
+              
+            }
+          }
+        ]
+      })
+      await numberPrompt.present()
+    }
+    else
+    {
+      this.llamada.callNumber(numero, true)
+      .then(
+        res => console.log(res)
+      )
+      .catch(
+        err => console.error(err)
+      )
+    }
   }
 
   //Obtener los datos desde la API
