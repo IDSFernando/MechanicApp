@@ -1,7 +1,7 @@
 <ion-content fullscreen="true" force-overscroll="false">
   <video controls preload="auto" autoplay webkit-playsinline playsinline muted loop>
     <!-- <source src="assets/video/background.mp4"> -->
-    <source src="../../assets/video/background.mp4" type="video/mp4; codecs='h.264'">
+    <source [src]="videoURL" type="video/mp4; codecs='h.264'">
     </video>
     <div class="page-centered-element">
       <div class="content">

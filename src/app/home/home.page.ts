@@ -250,7 +250,12 @@ export class HomePage {
           },
           (error) => {
             this.isLoaded = true
-            this.showAlert(this.objToString(error.error))
+            this.showAlert(`
+              Ha ocurrido un error mientras obteníamos los datos:
+              <ol>
+                <li> Verifica tu conexión a internet </li>
+              </ol>
+            `)
             if(showLoading)
               loading.dismiss()
           }

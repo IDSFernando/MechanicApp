@@ -146,7 +146,7 @@ export class AppComponent {
         })
       },
       (error) => {
-        this.showAlert(this.objToString(error))
+        // this.showAlert(this.objToString(error))
       }
     )
   }
@@ -172,6 +172,7 @@ export class AppComponent {
         error => {
           this.navCtrl.navigateRoot([''])
           this.router.navigateByUrl('')
+          this.showAlert('Parece que no tienes una conexión a internet activa')
         }
       )
     }
