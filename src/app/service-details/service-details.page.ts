@@ -124,7 +124,7 @@ export class ServiceDetailsPage implements OnInit {
     try {
       this.currentCMA = await this.nav.get('cma')
       this.currentCMA.cmv_phones.forEach(numero => {
-        this.phoneNumbers.push(numero)
+        this.phoneNumbers.push(numero.number)
       });
       const gradeAverage = this.currentCMA.grade_average.split('.')
       let enteros = gradeAverage[0]
