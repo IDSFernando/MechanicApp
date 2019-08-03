@@ -87,7 +87,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#ffffff');
       this.splashScreen.hide();
       this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
       const tok = localStorage.getItem('auth_token')
@@ -112,7 +112,6 @@ export class AppComponent {
    */
   async getAllServices()
   {
-
     //Limpiar antes de hacer un push
     this.appPages = [
       {

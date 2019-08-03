@@ -46,9 +46,6 @@ export class LoginPage implements OnInit {
     this.menu.enable(false)
     this.sbar.hide()
     this.videoURL = urlLogin
-    setTimeout(() => {
-      this.keyboard.hideFormAccessoryBar(false)
-    }, 1000);
   }
 
   ngOnInit() {

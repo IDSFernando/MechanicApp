@@ -49,7 +49,6 @@ export class BusquedaPage implements OnInit {
       })
 
       setTimeout(() => {
-        this.keyboard.hideFormAccessoryBar(false)
         this.gps.getCurrentPosition().then(
           (pos) => {
             this.lat = pos.coords.latitude
