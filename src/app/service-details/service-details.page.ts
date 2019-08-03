@@ -29,7 +29,8 @@ export class ServiceDetailsPage implements OnInit {
   commentFormGroup: FormGroup
   currentCMA: any = null
   starsCmaRate: any = []
-
+  services = []
+  horarios = []
 
   userLat: any = ''
   userLng: any = ''
@@ -47,6 +48,7 @@ export class ServiceDetailsPage implements OnInit {
     mapboxgl.accessToken = 'pk.eyJ1IjoiaWRzZmVybmFuZG8iLCJhIjoiY2p4NHhzZjQ3MDJyNzQzdXJxYW01cGE4NSJ9.703KpAMi7SCviDt79F_Y1g'
     this.currentModal = this.nav.get('modal')
     this.phoneNumbers = []
+
     this.commentFormGroup = this.formBuilder.group({
       'rate': ['', Validators.required],
       'comment': ['', Validators.required],
@@ -120,12 +122,21 @@ export class ServiceDetailsPage implements OnInit {
       backdropDismiss: false,
       showBackdrop: true
     });
-    // await loading.present()
+    await loading.present()
     try {
       this.currentCMA = await this.nav.get('cma')
       this.currentCMA.cmv_phones.forEach(numero => {
         this.phoneNumbers.push(numero.number)
       });
+      //Servicios del CMA
+      this.currentCMA.cmv_services.forEach(serv => {
+        this.services.push(serv)
+      });
+      //Horarios del CMA
+      this.currentCMA.cmv_schedules.forEach(horario => {
+        this.horarios.push(horario)
+      });
+      
       const gradeAverage = this.currentCMA.grade_average.split('.')
       let enteros = gradeAverage[0]
       let decimalesStr = '0.' + gradeAverage[0]
@@ -169,30 +180,10 @@ export class ServiceDetailsPage implements OnInit {
         _tmp
       ]
 
-      // let integerStars = parseInt(gradeAverage[0])
-      // let decimalStars = parseFloat(`0.${gradeAverage[1]}`)
-      // const voidStars = 5 - integerStars
-
-      // if (decimalStars < 0.25)
-      //   gradeAverage[1] = 0
-      // else if (decimalStars >= 0.25 && decimalStars < 0.75)
-      //   gradeAverage[1] = 0.5
-      // else if (decimalStars >= 0.75)
-      //   gradeAverage[1] = 1
-
-      // if(gradeAverage[1] == 0.5)
-      //   decimalStars = 1
-      // else if(gradeAverage[1] == 1) {
-      //   decimalStars = 0
-      //   integerStars++;
-      // } else
-      //   decimalStars = 0
-
-      // this.starsCmaRate = [[].constructor(integerStars, decimalStars, voidStars)]
-      
-      // this.roundedRate = parseFloat(gradeAverage[0]) + parseFloat(gradeAverage[1])
+      loading.dismiss()
     }
     catch (e) {
+      loading.dismiss()
       this.showAlert('Ocurrió un error mientras se obtenían los datos')
     }
     // loading.dismiss()
@@ -264,7 +255,14 @@ export class ServiceDetailsPage implements OnInit {
   }
 
 
-  eval() {
+  async eval() {
+    const loading = await this.loading.create({
+      message: 'Enviando tu comentario...',
+      translucent: true,
+      backdropDismiss: false,
+      showBackdrop: true
+    });
+    await loading.present()
     this.api.enviarComentario({
       token: localStorage.getItem('auth_token'),
       id: this.currentCMA.id,
@@ -273,10 +271,19 @@ export class ServiceDetailsPage implements OnInit {
       stars: this.commentFormGroup.get('rate').value,
     }).subscribe(
       (response) => {
+        loading.present()
+        this.currentCMA.cmv_reviews.unshift({
+          title: response.review.title,
+          content: response.review.content,
+          date: response.review.date,
+          stars: response.review.stars
+        })
         this.commentFormGroup.reset()
         this.showAlert(`Hemos enviado tu comentario, con tu apoyo lograrás que ${this.currentCMA.name} llegue más lejos!`)
+        //currentCMA.cmv_reviews
       },
       (error) => {
+        loading.present()
         this.showAlert(`
           Algo salió mal:
 
@@ -287,14 +294,6 @@ export class ServiceDetailsPage implements OnInit {
         `)
       }
     )
-    // this.comentarios.unshift({
-    //   autor: 'Luis Fernando',
-    //   mensaje: this.commentFormGroup.get('comment').value,
-    //   valoracion: this.commentFormGroup.get('rate').value
-    // })
-    // return resolve(this.comentarios).then(() => {
-    //   this.commentFormGroup.reset()
-    // })
   }
 
 
