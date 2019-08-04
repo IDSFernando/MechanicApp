@@ -130,7 +130,7 @@ export class ServiceDetailsPage implements OnInit {
       });
       //Servicios del CMA
       this.currentCMA.cmv_services.forEach(serv => {
-        this.services.push(serv)
+        this.services.push(serv.description)
       });
       //Horarios del CMA
       this.currentCMA.cmv_schedules.forEach(horario => {
@@ -271,7 +271,7 @@ export class ServiceDetailsPage implements OnInit {
       stars: this.commentFormGroup.get('rate').value,
     }).subscribe(
       (response) => {
-        loading.present()
+        loading.dismiss()
         this.currentCMA.cmv_reviews.unshift({
           title: response.review.title,
           content: response.review.content,
@@ -283,7 +283,7 @@ export class ServiceDetailsPage implements OnInit {
         //currentCMA.cmv_reviews
       },
       (error) => {
-        loading.present()
+        loading.dismiss()
         this.showAlert(`
           Algo salió mal:
 
