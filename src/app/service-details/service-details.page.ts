@@ -118,7 +118,7 @@ export class ServiceDetailsPage implements OnInit {
   async load() {
     const loading = await this.loading.create({
       message: 'Cargando datos del taller...',
-      translucent: true,
+      translucent: false,
       backdropDismiss: false,
       showBackdrop: true
     });
@@ -130,7 +130,7 @@ export class ServiceDetailsPage implements OnInit {
       });
       //Servicios del CMA
       this.currentCMA.cmv_services.forEach(serv => {
-        this.services.push(serv)
+        this.services.push(serv.description)
       });
       //Horarios del CMA
       this.currentCMA.cmv_schedules.forEach(horario => {
@@ -221,7 +221,7 @@ export class ServiceDetailsPage implements OnInit {
       })
       const actionSheet = await this.actionSheetController.create({
         header: 'Elige una opción',
-        translucent: true,
+        translucent: false,
         buttons: _buttons
       })
       await actionSheet.present();
@@ -258,7 +258,7 @@ export class ServiceDetailsPage implements OnInit {
   async eval() {
     const loading = await this.loading.create({
       message: 'Enviando tu comentario...',
-      translucent: true,
+      translucent: false,
       backdropDismiss: false,
       showBackdrop: true
     });
@@ -271,7 +271,7 @@ export class ServiceDetailsPage implements OnInit {
       stars: this.commentFormGroup.get('rate').value,
     }).subscribe(
       (response) => {
-        loading.present()
+        loading.dismiss()
         this.currentCMA.cmv_reviews.unshift({
           title: response.review.title,
           content: response.review.content,
@@ -283,7 +283,7 @@ export class ServiceDetailsPage implements OnInit {
         //currentCMA.cmv_reviews
       },
       (error) => {
-        loading.present()
+        loading.dismiss()
         this.showAlert(`
           Algo salió mal:
 
@@ -309,7 +309,7 @@ export class ServiceDetailsPage implements OnInit {
       header: "Mechanicapp",
       message: text,
       buttons: ['Ok'],
-      translucent: true
+      translucent: false
     });
     return await alert.present();
   }

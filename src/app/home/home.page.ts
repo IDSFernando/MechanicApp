@@ -68,7 +68,7 @@ export class HomePage {
   {
     const loading = await this.loading.create({
       message: 'Cargando datos del taller...',
-      translucent: true,
+      translucent: false,
       backdropDismiss: false,
       showBackdrop: true
     })
@@ -185,7 +185,7 @@ export class HomePage {
     this.cmasCercanos = []
     const loading = await this.loading.create({
       message: 'Estamos buscando talleres cerca de tí...',
-      translucent: true,
+      translucent: false,
       backdropDismiss: false,
       showBackdrop: true
     });
@@ -315,7 +315,7 @@ export class HomePage {
       header: "Mechanicapp",
       message: text,
       buttons: ['Ok'],
-      translucent: true
+      translucent: false
     });
     return await alert.present();
   }

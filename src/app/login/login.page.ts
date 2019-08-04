@@ -75,7 +75,7 @@ export class LoginPage implements OnInit {
       message: 'Iniciando sesión...',
       backdropDismiss: false,
       keyboardClose: true,
-      translucent: true
+      translucent: false
     })
 
     let hasErrors = false
@@ -145,7 +145,7 @@ export class LoginPage implements OnInit {
       message: 'Estamos creando tu cuenta...',
       backdropDismiss: false,
       keyboardClose: true,
-      translucent: true
+      translucent: false
     })
 
     // Validar que los campos no lleven espacios al inicio y al final
@@ -257,7 +257,7 @@ export class LoginPage implements OnInit {
       header: "Mechanicapp",
       message: text,
       buttons: ['Ok'],
-      translucent: true
+      translucent: false
     });
     return await alert.present();
   }

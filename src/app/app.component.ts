@@ -203,7 +203,7 @@ export class AppComponent {
       header: "Mechanicapp",
       message: text,
       buttons: ['Ok'],
-      translucent: true
+      translucent: false
     });
     return await alert.present();
   }

@@ -196,7 +196,7 @@ export class AccountPage implements OnInit {
   {
     const alert = await this.alert.create({
       header: '¿Estás seguro?',
-      translucent: true,
+      translucent: false,
       message: 'Esta acción no se podrá revertir',
       buttons: [
         {
@@ -240,7 +240,7 @@ export class AccountPage implements OnInit {
       header: "Mechanicapp",
       message: text,
       buttons: ['Ok'],
-      translucent: true
+      translucent: false
     });
     return await alert.present();
   }

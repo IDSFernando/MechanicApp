@@ -101,7 +101,7 @@ export class BusquedaPage implements OnInit {
       //Pedir a la API los resultados de búsqueda
       this._loading = await this.loading.create({
         message: 'Buscando...',
-        translucent: true,
+        translucent: false,
         backdropDismiss: false,
         showBackdrop: true
       });
@@ -274,7 +274,7 @@ export class BusquedaPage implements OnInit {
         header: "Mechanicapp",
         message: text,
         buttons: ['Ok'],
-        translucent: true
+        translucent: false
       });
       return await alert.present();
     }
@@ -307,7 +307,7 @@ export class BusquedaPage implements OnInit {
   {
     const loading = await this.loading.create({
       message: 'Cargando datos del taller...',
-      translucent: true,
+      translucent: false,
       backdropDismiss: false,
       showBackdrop: true
     })
