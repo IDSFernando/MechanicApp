@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
 import { AccountPage } from './account/account.page';
 import { RESTService } from './rest.service';
-import { Router } from '@angular/router'
+import { Router, NavigationExtras } from '@angular/router'
 
 interface userData {
   email: string,
@@ -224,8 +224,6 @@ export class AppComponent {
     return str;
   }
 
-
-
   async getIconFromKeyword(keyword)
   {
     let result = ''
@@ -237,5 +235,21 @@ export class AppComponent {
       }
     })
     return result
+  }
+
+  /**
+   * Reciclar la vista de búsqueda
+   *
+   * @param   {[String]}  servicio  servicio de búsqueda
+   */
+  goToThis(servicio)
+  {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "busco": ''+servicio
+      }
+    }
+    
+    this.router.navigate(["busqueda"], navigationExtras)
   }
 }
