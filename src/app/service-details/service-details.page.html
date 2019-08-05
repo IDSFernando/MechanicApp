@@ -37,14 +37,14 @@
       </ion-row>
     </ion-grid>
   </div>
-  
+
   <div>
     <div class="full-size" [hidden]="currentSegment != 'map'">
       <div id="taller-map">
-        
+
       </div>
     </div>
-    
+
     <div class="full-size" [hidden]="currentSegment != 'about'">
       <div padding>
         <ion-grid fixed>
@@ -54,11 +54,11 @@
                 <ion-card-header>
                   <ion-card-subtitle>Valoración</ion-card-subtitle>
                   <ion-card-title>
-                      <ion-icon name="star" color="warning" *ngFor="let star of starsCmaRate[0]"></ion-icon>
-                      <ion-icon name="star-half" color="warning" *ngIf="starsCmaRate[1] == 0.5"></ion-icon>
-                      <ion-icon name="star" color="warning" *ngIf="starsCmaRate[1] == 1"></ion-icon>
-                      <ion-icon name="star" color="light" *ngFor="let star of starsCmaRate[2]"></ion-icon>
-                      <strong>{{ currentCMA.grade_average }}</strong>
+                    <ion-icon name="star" color="warning" *ngFor="let star of starsCmaRate[0]"></ion-icon>
+                    <ion-icon name="star-half" color="warning" *ngIf="starsCmaRate[1] == 0.5"></ion-icon>
+                    <ion-icon name="star" color="warning" *ngIf="starsCmaRate[1] == 1"></ion-icon>
+                    <ion-icon name="star" color="light" *ngFor="let star of starsCmaRate[2]"></ion-icon>
+                    <strong>{{ currentCMA.grade_average }}</strong>
                   </ion-card-title>
                 </ion-card-header>
               </ion-card>
@@ -84,10 +84,20 @@
                   <ion-card-subtitle>Horarios de apertura</ion-card-subtitle>
                   <ion-card-title></ion-card-title>
                   <ion-card-content>
-                    <ion-list>
-                      <ion-item *ngFor="let h of horarios">
-                        <ion-label>{{ h }}</ion-label>
-                      </ion-item>
+                    <ion-list *ngIf="horarios.length > 0">
+                      <div *ngFor="let h of horarios">
+                        <ion-label *ngIf="h.start_time == 'Libre'">
+                          <strong>{{ h.day }}</strong> no abre
+                        </ion-label>
+                        <ion-label *ngIf="h.start_time != 'Libre'">
+                          <strong>{{ h.day }}</strong> de <strong>{{ h.start_time }}</strong> a
+                          <strong>{{ h.end_time }}</strong>
+                        </ion-label>
+                        <hr>
+                      </div>
+                    </ion-list>
+                    <ion-list *ngIf="horarios.length == 0">
+                      <ion-label>No hay horarios</ion-label>
                     </ion-list>
                   </ion-card-content>
                 </ion-card-header>
@@ -106,11 +116,22 @@
                 <ion-card-header>
                   <ion-card-subtitle>Servicios que ofrece</ion-card-subtitle>
                   <ion-card-content>
-                    <ion-list>
+                    <div *ngIf="services.length > 0">
+                      <div *ngFor="let s of services">
+                        <ion-label>
+                          <strong>{{ s }}</strong>
+                        </ion-label>
+                        <hr>
+                      </div>
+                    </div>
+                    <div *ngIf="services.length == 0">
+                      <ion-label>No ofrece ningún servicio por el momento</ion-label>
+                    </div>
+                    <!-- <ion-list>
                       <ion-item *ngFor="let s of services">
                         <ion-label>{{ s }}</ion-label>
                       </ion-item>
-                    </ion-list>
+                    </ion-list> -->
                   </ion-card-content>
                 </ion-card-header>
               </ion-card>
@@ -119,7 +140,7 @@
         </ion-grid>
       </div>
     </div>
-    
+
     <div class="full-size" [hidden]="currentSegment != 'comments'">
       <div padding>
         <ion-grid fixed>
@@ -130,53 +151,56 @@
                   <ion-card-header>
                     <ion-card-subtitle>Valoración</ion-card-subtitle>
                     <ion-card-title>
-                      <rating formControlName="rate"
-                      readonly="false"
-                      size="default">
-                    </rating>
-                  </ion-card-title>
-                  <ion-card-content>
-                    <ion-grid fixed>
-                      <ion-row>
-                        <ion-col size="12">
-                          <ion-textarea style="color: black !important; font-weight:bold !important" formControlName="title" style="border-bottom: solid 1px #488aff !important" placeholder="Título"></ion-textarea>
-                        </ion-col>
-                      </ion-row>
-                      <ion-row>
-                        <ion-col size="12">
-                          <ion-textarea formControlName="comment" style="border-bottom: solid 1px #488aff !important" placeholder="Escribe tu opinión"></ion-textarea>
-                        </ion-col>
-                        <ion-col size="12">
-                          <ion-button color="tertiary" [disabled]="commentFormGroup.invalid" (click)="eval()" expand="full">
-                            Enviar
-                            <ion-icon slot="end" name="send"></ion-icon>
-                          </ion-button>
-                        </ion-col>
-                      </ion-row>
-                    </ion-grid>
-                  </ion-card-content>
+                      <rating formControlName="rate" readonly="false" size="default">
+                      </rating>
+                    </ion-card-title>
+                    <ion-card-content>
+                      <ion-grid fixed>
+                        <ion-row>
+                          <ion-col size="12">
+                            <ion-textarea style="color: black !important; font-weight:bold !important"
+                              formControlName="title" style="border-bottom: solid 1px #488aff !important"
+                              placeholder="Título"></ion-textarea>
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col size="12">
+                            <ion-textarea formControlName="comment" style="border-bottom: solid 1px #488aff !important"
+                              placeholder="Escribe tu opinión"></ion-textarea>
+                          </ion-col>
+                          <ion-col size="12">
+                            <ion-button color="tertiary" [disabled]="commentFormGroup.invalid" (click)="eval()"
+                              expand="full">
+                              Enviar
+                              <ion-icon slot="end" name="send"></ion-icon>
+                            </ion-button>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </ion-card-content>
+                  </ion-card-header>
+                </ion-card>
+              </form>
+            </ion-col>
+            <ion-col size="12" *ngFor="let comentario of currentCMA.cmv_reviews">
+              <ion-card>
+                <ion-card-header>
+                  <ion-icon name="star" class="star" *ngFor="let estrella of [].constructor(comentario.stars)">
+                  </ion-icon>
                 </ion-card-header>
+                <ion-card-content>
+                  <ion-card-subtitle>{{ comentario.title }}</ion-card-subtitle>
+                  <br>
+                  {{ comentario.content }}
+                  <br>
+                  <small>- {{ ''+comentario.date.substring(0,10) }}</small>
+                </ion-card-content>
               </ion-card>
-            </form>
-          </ion-col>
-          <ion-col size="12" *ngFor="let comentario of currentCMA.cmv_reviews">
-            <ion-card>
-              <ion-card-header>
-                <ion-icon name="star" class="star" *ngFor="let estrella of [].constructor(comentario.stars)"></ion-icon>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-card-subtitle>{{ comentario.title }}</ion-card-subtitle>
-                <br>
-                {{ comentario.content }}
-                <br>
-                <small>- {{ ''+comentario.date.substring(0,10) }}</small>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
     </div>
+
   </div>
-  
-</div>
 </ion-content>
