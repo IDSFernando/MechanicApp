@@ -84,10 +84,19 @@
                   <ion-card-subtitle>Horarios de apertura</ion-card-subtitle>
                   <ion-card-title></ion-card-title>
                   <ion-card-content>
-                    <ion-list>
-                      <ion-item *ngFor="let h of horarios">
-                        <ion-label>{{ h }}</ion-label>
-                      </ion-item>
+                    <ion-list *ngIf="horarios.length > 0">
+                      <div *ngFor="let h of horarios">
+                        <ion-label *ngIf="h.start_time == 'Libre'">
+                          <strong>{{ h.day }}</strong> no abre
+                        </ion-label>
+                        <ion-label *ngIf="h.start_time != 'Libre'">
+                            <strong>{{ h.day }}</strong> de <strong>{{ h.start_time }}</strong> a <strong>{{ h.end_time }}</strong>
+                        </ion-label>
+                        <hr>
+                      </div>
+                    </ion-list>
+                    <ion-list *ngIf="horarios.length == 0">
+                      <ion-label>No hay horarios</ion-label>
                     </ion-list>
                   </ion-card-content>
                 </ion-card-header>
@@ -106,11 +115,22 @@
                 <ion-card-header>
                   <ion-card-subtitle>Servicios que ofrece</ion-card-subtitle>
                   <ion-card-content>
-                    <ion-list>
+                    <div *ngIf="services.length > 0">
+                        <div *ngFor="let s of services">
+                          <ion-label>
+                            <strong>{{ s }}</strong>
+                          </ion-label>
+                          <hr>
+                        </div>
+                    </div>
+                    <div *ngIf="services.length == 0">
+                      <ion-label>No ofrece ningún servicio por el momento</ion-label>
+                    </div>
+                    <!-- <ion-list>
                       <ion-item *ngFor="let s of services">
                         <ion-label>{{ s }}</ion-label>
                       </ion-item>
-                    </ion-list>
+                    </ion-list> -->
                   </ion-card-content>
                 </ion-card-header>
               </ion-card>
