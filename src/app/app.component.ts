@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx'
 import { AccountPage } from './account/account.page';
 import { RESTService } from './rest.service';
-import { Router } from '@angular/router'
+import { Router, NavigationExtras } from '@angular/router'
 
 interface userData {
   email: string,
@@ -87,7 +87,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.backgroundColorByHexString('#ffffff');
+      this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.screen.lock(this.screen.ORIENTATIONS.PORTRAIT)
       const tok = localStorage.getItem('auth_token')
@@ -114,6 +114,7 @@ export class AppComponent {
    */
   async getAllServices()
   {
+
     //Limpiar antes de hacer un push
     this.appPages = [
       {
@@ -205,7 +206,7 @@ export class AppComponent {
       header: "Mechanicapp",
       message: text,
       buttons: ['Ok'],
-      translucent: false
+      translucent: true
     });
     return await alert.present();
   }
@@ -225,8 +226,6 @@ export class AppComponent {
     return str;
   }
 
-
-
   async getIconFromKeyword(keyword)
   {
     let result = ''
@@ -238,5 +237,21 @@ export class AppComponent {
       }
     })
     return result
+  }
+
+  /**
+   * Reciclar la vista de búsqueda
+   *
+   * @param   {[String]}  servicio  servicio de búsqueda
+   */
+  goToThis(servicio)
+  {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "busco": ''+servicio
+      }
+    }
+    
+    this.router.navigate(["busqueda"], navigationExtras)
   }
 }

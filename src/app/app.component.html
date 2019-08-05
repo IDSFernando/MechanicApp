@@ -1,39 +1,47 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu>
-      <ion-header (click)="openAccountDetails()">
-        <ion-toolbar class="big-toolbar">
-          <!--<ion-title>Luis Fernando</ion-title>-->
-          <ion-grid fixed>
-            <ion-row>
-              <ion-col size="12" style="padding: 0; text-align: center">
-                <ion-icon name="contact" color="warning" style="font-size: 5em; padding-top: 0.15em; padding-left: 0.15em; text-align: center !important"></ion-icon>
-              </ion-col>
-              <ion-col size="12" style="padding: 0; margin-top: -27px">
-                <h2 color="dark" style="text-align: center; padding: 0 !important">{{ userdata.name }}</h2>
-                <br>
-                <h5 color="warning" style="margin-top: -32px; color: #9c9c9c !important; text-align: center">@{{ userdata.username }}</h5>
-              </ion-col>
-              <ion-col size="12" style="padding: 0; margin-top: -10px; text-align: center !important">
-                <small color="dark" style="text-align: center; padding: 0 !important">v0.0.1 - build 1</small>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon" [color]="p.color"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
-</ion-app>
+    <ion-split-pane>
+      <ion-menu>
+        <ion-header (click)="openAccountDetails()">
+          <ion-toolbar class="big-toolbar">
+            <!--<ion-title>Luis Fernando</ion-title>-->
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" style="padding: 0; text-align: center">
+                  <ion-icon name="contact" color="warning" style="font-size: 5em; padding-top: 0.15em; padding-left: 0.15em; text-align: center !important"></ion-icon>
+                </ion-col>
+                <ion-col size="12" style="padding: 0; margin-top: -27px">
+                  <h2 color="dark" style="text-align: center; padding: 0 !important">{{ userdata.name }}</h2>
+                  <br>
+                  <h5 color="warning" style="margin-top: -32px; color: #9c9c9c !important; text-align: center">@{{ userdata.username }}</h5>
+                </ion-col>
+                <ion-col size="12" style="padding: 0; margin-top: -10px; text-align: center !important">
+                  <small color="dark" style="text-align: center; padding: 0 !important">v0.0.1 - build 1</small>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+              <!-- <ion-item [routerDirection]="'root'" [routerLink]="[p.url]"> -->
+              <ion-item *ngIf="p.title == 'Inicio'" [routerDirection]="'root'" [routerLink]="[p.url]">
+                <ion-icon slot="start" [name]="p.icon" [color]="p.color"></ion-icon>
+                <ion-label>
+                  {{p.title}}
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="p.title != 'Inicio'" [routerDirection]="'root'" (click)="goToThis(p.title)">
+                <ion-icon slot="start" [name]="p.icon" [color]="p.color"></ion-icon>
+                <ion-label>
+                  {{p.title}}
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+      <ion-router-outlet main></ion-router-outlet>
+    </ion-split-pane>
+  </ion-app>
+  
