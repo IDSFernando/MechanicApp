@@ -100,6 +100,8 @@ export class AppComponent {
       this.platform.backButton.subscribe(async () => {
         if (this.router.isActive('/home', true) && this.router.url === '/home') {
           navigator['app'].exitApp();
+        } else if (this.router.isActive('/', true) && this.router.url === '/') {
+          navigator['app'].exitApp();
         }
       });
     });
