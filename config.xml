@@ -91,5 +91,9 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+<<<<<<< HEAD
     <allow-navigation href="http://192.168.0.8:8100" sessionid="2af98dc4" />
+=======
+    <engine name="ios" spec="5.0.1" />
+>>>>>>> 927ff6683ed1704ae2836ee20b122ee6c5abb86d
 </widget>
