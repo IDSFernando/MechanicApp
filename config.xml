@@ -3,7 +3,7 @@
     <name>Mechanicapp</name>
     <description>Los mejores centros de mantenimiento automotríz a tu alcance..</description>
     <author email="163189@ids.upchiapas.edu.mx" href="http://ionicframework.com/">BitQuark.io</author>
-    <content original-src="index.html" src="http://192.168.0.8:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
