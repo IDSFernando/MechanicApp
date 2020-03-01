@@ -3,6 +3,8 @@ import { NavParams, AlertController, ModalController, MenuController, NavControl
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { RESTService } from '../rest.service';
+import { ToastController } from '@ionic/angular';
+
 interface userData {
   email: string,
   lastname: string,
@@ -36,6 +38,7 @@ export class AccountPage implements OnInit {
     private alert: AlertController,
     private formBuilder:FormBuilder,
     private events: Events,
+    public tostadora: ToastController,
   )
   {
     this.currentModal = this.nav.get('modal')
@@ -265,7 +268,18 @@ export class AccountPage implements OnInit {
   {
     localStorage.setItem('max_distance', `${this.rangoBusqueda}`)
     this.events.publish('range:change', null, null)
+    this.PutToast("Tu distancia ha sido actualizada a "+ this.rangoBusqueda + " metros."  , 2000)
   }
+
+  async PutToast(msj:string, time:number){
+    const toast = await this.tostadora.create({
+      message: msj,
+      duration: time
+    });
+    toast.present();
+  }
+
+  
 
   edit()
   {
