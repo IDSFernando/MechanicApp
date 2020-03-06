@@ -5,6 +5,9 @@ import { Router } from '@angular/router'
 import { RESTService } from '../rest.service';
 import { ToastController } from '@ionic/angular';
 
+import { LoadingController } from '@ionic/angular';
+
+
 interface userData {
   email: string,
   lastname: string,
@@ -39,6 +42,7 @@ export class AccountPage implements OnInit {
     private formBuilder:FormBuilder,
     private events: Events,
     public tostadora: ToastController,
+    public loadingController: LoadingController
   )
   {
     this.currentModal = this.nav.get('modal')
@@ -158,7 +162,8 @@ export class AccountPage implements OnInit {
               else
               {
                 const _token = localStorage.getItem('auth_token')
-                this.api.updateMyData({
+                this.presentLoading()
+                this.api.updateMyData({                  
                   name: this.updateFormGroup.get('name').value.trim(),
                   lastname: this.updateFormGroup.get('lastname').value.trim(),
                   username: this.updateFormGroup.get('username').value.trim(),
@@ -192,7 +197,19 @@ export class AccountPage implements OnInit {
         }
       ]
     })
+    
     await passwordPrompt.present()
+    
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Espere por favor...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();    
   }
 
   async deleteAccount()
